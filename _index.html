@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GYMTRACKO — El futuro de tu gimnasio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF5C1A;
+    --orange-dim: rgba(255,92,26,0.15);
+    --orange-glow: rgba(255,92,26,0.35);
+    --bg: #080A0C;
+    --bg2: #0D1014;
+    --bg3: #111519;
+    --line: rgba(255,255,255,0.06);
+    --text: #F0EEE8;
+    --muted: rgba(240,238,232,0.45);
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  #cursor {
+    width: 12px; height: 12px;
+    background: var(--orange);
+    border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: screen;
+  }
+  #cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,92,26,0.5);
+    border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: all 0.12s ease;
+  }
+  body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 20px; height: 20px; }
+
+  /* GRID BACKGROUND */
+  #grid-canvas {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none; opacity: 0.4;
+  }
+
+  /* PARTICLES */
+  #particle-canvas {
+    position: fixed; inset: 0; z-index: 1;
+    pointer-events: none;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: linear-gradient(to bottom, rgba(8,10,12,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(0px);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 900; font-size: 22px; letter-spacing: 3px;
+    color: var(--text); text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo .o-ring {
+    width: 22px; height: 22px; position: relative; flex-shrink: 0;
+  }
+  .nav-logo .o-ring svg { width: 100%; height: 100%; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-cta {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    background: none; border: 1px solid var(--orange);
+    color: var(--orange); padding: 10px 24px; cursor: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--orange); color: #000; }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 10; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 80px;
+    overflow: hidden;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--orange);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 900; line-height: 0.88;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+  }
+  .hero-title .line1 {
+    font-size: clamp(72px, 12vw, 160px);
+    color: var(--text);
+    display: block;
+    opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-title .line2 {
+    font-size: clamp(72px, 12vw, 160px);
+    color: var(--orange);
+    display: block;
+    opacity: 0; animation: fadeUp 0.8s 0.65s forwards;
+  }
+  .hero-title .line3 {
+    font-size: clamp(40px, 6vw, 80px);
+    color: var(--muted);
+    display: block; font-weight: 300; font-style: italic; letter-spacing: 1px;
+    opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-bottom {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    opacity: 0; animation: fadeUp 0.8s 1s forwards;
+  }
+  .hero-desc {
+    font-size: 15px; line-height: 1.7; color: var(--muted);
+    max-width: 380px;
+  }
+  .hero-desc strong { color: var(--text); font-weight: 500; }
+  .hero-stats {
+    display: flex; gap: 48px;
+  }
+  .hero-stat-num {
+    font-family: var(--font-display); font-weight: 700; font-size: 48px;
+    color: var(--text); line-height: 1;
+  }
+  .hero-stat-num span { color: var(--orange); }
+  .hero-stat-label { font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-top: 4px; }
+
+  .scroll-indicator {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeIn 1s 1.5s forwards;
+  }
+  .scroll-indicator span { font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+  .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--orange), transparent); animation: scrollPulse 2s infinite; }
+
+  /* TICKER */
+  .ticker-wrap {
+    overflow: hidden; background: var(--orange); padding: 12px 0;
+    position: relative; z-index: 10;
+  }
+  .ticker {
+    display: flex; gap: 0;
+    animation: ticker 20s linear infinite;
+    white-space: nowrap;
+  }
+  .ticker-item {
+    font-family: var(--font-display); font-weight: 700; font-size: 13px;
+    letter-spacing: 3px; text-transform: uppercase; color: #000;
+    padding: 0 32px; display: flex; align-items: center; gap: 16px;
+  }
+  .ticker-dot { width: 4px; height: 4px; background: rgba(0,0,0,0.4); border-radius: 50%; }
+
+  /* PROBLEM SECTION */
+  #problem {
+    padding: 120px 48px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .problem-left .section-tag {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 20px;
+  }
+  .problem-title {
+    font-family: var(--font-display); font-weight: 900; font-size: clamp(42px, 5vw, 72px);
+    line-height: 0.92; text-transform: uppercase; margin-bottom: 24px;
+  }
+  .problem-title em { color: var(--orange); font-style: normal; display: block; }
+  .problem-body { font-size: 15px; line-height: 1.8; color: var(--muted); }
+
+  .problem-right { display: flex; flex-direction: column; gap: 16px; }
+  .stat-block {
+    border: 1px solid var(--line); padding: 24px 28px;
+    background: var(--bg2);
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateX(30px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .stat-block.visible { opacity: 1; transform: translateX(0); }
+  .stat-block::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--orange);
+  }
+  .stat-block-num {
+    font-family: var(--font-display); font-weight: 900; font-size: 52px;
+    color: var(--orange); line-height: 1;
+  }
+  .stat-block-label { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+  .stat-block:nth-child(2) { transition-delay: 0.1s; }
+  .stat-block:nth-child(3) { transition-delay: 0.2s; }
+
+  /* FEATURES */
+  #features { padding: 120px 48px; }
+  .features-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 64px;
+    border-bottom: 1px solid var(--line); padding-bottom: 32px;
+  }
+  .features-title {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(48px, 6vw, 88px); line-height: 0.9; text-transform: uppercase;
+  }
+  .features-title em { color: var(--orange); font-style: normal; }
+  .features-sub { font-size: 14px; color: var(--muted); max-width: 260px; text-align: right; line-height: 1.7; }
+
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--line);
+  }
+  .feature-card {
+    background: var(--bg); padding: 40px 32px;
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s, background 0.3s;
+  }
+  .feature-card.visible { opacity: 1; transform: translateY(0); }
+  .feature-card:nth-child(2) { transition-delay: 0.1s; }
+  .feature-card:nth-child(3) { transition-delay: 0.2s; }
+  .feature-card:nth-child(4) { transition-delay: 0.15s; }
+  .feature-card:nth-child(5) { transition-delay: 0.25s; }
+  .feature-card:nth-child(6) { transition-delay: 0.35s; }
+  .feature-card:hover { background: var(--bg3); }
+  .feature-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--orange); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .feature-card:hover::after { transform: scaleX(1); }
+
+  .feature-num {
+    font-family: var(--font-display); font-size: 11px; letter-spacing: 3px;
+    color: var(--orange); margin-bottom: 20px; font-weight: 700;
+  }
+  .feature-icon {
+    width: 40px; height: 40px; margin-bottom: 20px;
+  }
+  .feature-icon svg { width: 100%; height: 100%; }
+  .feature-name {
+    font-family: var(--font-display); font-weight: 700; font-size: 22px;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+  }
+  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  /* RETENTION SECTION */
+  #retention {
+    padding: 120px 48px;
+    background: var(--bg2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .retention-inner {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center;
+  }
+  .retention-visual { position: relative; }
+  .retention-ring-wrap {
+    width: 280px; height: 280px; position: relative; margin: 0 auto;
+  }
+  .retention-ring-wrap svg { width: 100%; height: 100%; }
+  .ring-label {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .ring-pct {
+    font-family: var(--font-display); font-weight: 900; font-size: 64px;
+    color: var(--orange); line-height: 1;
+  }
+  .ring-sub { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .ring-compare { display: flex; gap: 24px; margin-top: 24px; justify-content: center; }
+  .ring-legend { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+  .ring-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .retention-right .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+  .retention-title {
+    font-family: var(--font-display); font-weight: 900; font-size: clamp(38px, 4vw, 60px);
+    line-height: 0.95; text-transform: uppercase; margin-bottom: 24px;
+  }
+  .retention-title em { color: var(--orange); font-style: normal; display: block; }
+  .retention-body { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+
+  .fitcoin-row { display: flex; flex-direction: column; gap: 12px; }
+  .fitcoin-item {
+    display: flex; align-items: center; gap: 16px; padding: 16px 20px;
+    border: 1px solid var(--line); background: var(--bg);
+  }
+  .fitcoin-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--orange-dim); border: 1px solid var(--orange-glow);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .fitcoin-icon svg { width: 18px; height: 18px; }
+  .fitcoin-name { font-size: 13px; font-weight: 500; }
+  .fitcoin-coins { margin-left: auto; font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--orange); }
+
+  /* TIMELINE SECTION */
+  #timeline { padding: 120px 48px; }
+  .timeline-header { text-align: center; margin-bottom: 80px; }
+  .timeline-title {
+    font-family: var(--font-display); font-weight: 900; font-size: clamp(48px, 6vw, 80px);
+    text-transform: uppercase; line-height: 0.9;
+  }
+  .timeline-title em { color: var(--orange); font-style: normal; }
+
+  .timeline-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); position: relative; gap: 0;
+  }
+  .timeline-steps::before {
+    content: ''; position: absolute; top: 32px; left: 12.5%; right: 12.5%;
+    height: 1px; background: linear-gradient(to right, var(--orange), rgba(255,92,26,0.2));
+    z-index: 0;
+  }
+  .timeline-step { padding: 0 24px; text-align: center; position: relative; z-index: 1; }
+  .timeline-dot {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--bg); border: 1px solid var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px; position: relative;
+    font-family: var(--font-display); font-weight: 900; font-size: 24px; color: var(--orange);
+  }
+  .timeline-step:first-child .timeline-dot { background: var(--orange); color: #000; }
+  .timeline-step-title {
+    font-family: var(--font-display); font-weight: 700; font-size: 18px;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .timeline-step-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* TESTIMONIAL */
+  #testimonial {
+    padding: 80px 48px;
+    display: flex; align-items: center; justify-content: center;
+    border-top: 1px solid var(--line);
+  }
+  .testimonial-block {
+    max-width: 800px; text-align: center;
+  }
+  .testimonial-quote {
+    font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(28px, 4vw, 52px); line-height: 1.1;
+    color: var(--text); margin-bottom: 32px;
+  }
+  .testimonial-quote strong { color: var(--orange); font-weight: 700; }
+  .testimonial-author { font-size: 12px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+
+  /* CTA FINAL */
+  #cta-final {
+    padding: 140px 48px;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; position: relative;
+    overflow: hidden;
+  }
+  #cta-final::before {
+    content: 'O';
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 600px; color: rgba(255,92,26,0.04);
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    pointer-events: none; letter-spacing: -20px; line-height: 1;
+    animation: rotateSlow 30s linear infinite;
+  }
+  .cta-final-tag { font-size: 11px; letter-spacing: 4px; color: var(--orange); text-transform: uppercase; margin-bottom: 24px; }
+  .cta-final-title {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(56px, 8vw, 120px); line-height: 0.88; text-transform: uppercase;
+    margin-bottom: 40px; position: relative; z-index: 1;
+  }
+  .cta-final-title span { display: block; }
+  .cta-final-title .accent { color: var(--orange); }
+  .cta-buttons { display: flex; gap: 16px; position: relative; z-index: 1; }
+  .btn-primary {
+    font-family: var(--font-display); font-weight: 700; font-size: 15px;
+    letter-spacing: 2px; text-transform: uppercase;
+    background: var(--orange); color: #000; border: none;
+    padding: 18px 48px; cursor: none;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-secondary {
+    font-family: var(--font-display); font-weight: 700; font-size: 15px;
+    letter-spacing: 2px; text-transform: uppercase;
+    background: none; color: var(--text);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 18px 48px; cursor: none;
+    transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 48px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-logo {
+    font-family: var(--font-display); font-weight: 900; font-size: 18px;
+    letter-spacing: 3px; color: var(--muted);
+  }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+  .footer-os {
+    display: flex; gap: 16px;
+    font-size: 11px; letter-spacing: 1px; color: rgba(255,255,255,0.25);
+  }
+  .footer-os span:first-child { color: var(--orange); }
+
+  /* GLITCH */
+  .glitch { position: relative; display: inline-block; }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+  }
+  .glitch::before { color: var(--orange); animation: glitch1 3s infinite; left: 2px; }
+  .glitch::after  { color: #00CFFF; animation: glitch2 3s infinite; left: -2px; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%,100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes glitch1 {
+    0%,90%,100% { clip-path: polygon(0 0,0 0,0 0,0 0); transform: translate(0); }
+    92%  { clip-path: polygon(0 20%,100% 20%,100% 40%,0 40%); transform: translate(-2px,1px); }
+    94%  { clip-path: polygon(0 60%,100% 60%,100% 80%,0 80%); transform: translate(2px,-1px); }
+    96%  { clip-path: polygon(0 10%,100% 10%,100% 30%,0 30%); transform: translate(-1px,2px); }
+  }
+  @keyframes glitch2 {
+    0%,93%,100% { clip-path: polygon(0 0,0 0,0 0,0 0); transform: translate(0); }
+    95% { clip-path: polygon(0 50%,100% 50%,100% 70%,0 70%); transform: translate(2px,-2px); }
+    97% { clip-path: polygon(0 5%,100% 5%,100% 25%,0 25%);  transform: translate(-2px,1px); }
+  }
+  @keyframes dash {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes rotateSlow {
+    from { transform: translate(-50%,-50%) rotate(0deg); }
+    to   { transform: translate(-50%,-50%) rotate(360deg); }
+  }
+  @keyframes ringDraw {
+    from { stroke-dashoffset: 720; }
+    to   { stroke-dashoffset: 144; }
+  }
+
+  /* ADMIN PANEL SECTION */
+  #admin {
+    padding: 120px 48px;
+    background: var(--bg2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .admin-header {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: end; margin-bottom: 64px;
+  }
+  .admin-title {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(48px, 6vw, 88px); line-height: 0.9; text-transform: uppercase;
+  }
+  .admin-title em { color: var(--orange); font-style: normal; display: block; }
+  .admin-intro { font-size: 15px; color: var(--muted); line-height: 1.8; }
+  .admin-intro strong { color: var(--text); font-weight: 500; }
+
+  .admin-mockup {
+    background: #0A0C0F;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 48px;
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .admin-mockup.visible { opacity: 1; transform: translateY(0); }
+
+  .mockup-topbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.02);
+  }
+  .mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .mockup-title-bar {
+    flex: 1; text-align: center; font-size: 11px; color: rgba(255,255,255,0.2);
+    letter-spacing: 1px; text-transform: uppercase; font-family: var(--font-display);
+  }
+
+  .mockup-body { display: flex; }
+  .mockup-sidebar {
+    width: 180px; flex-shrink: 0;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    padding: 20px 0;
+  }
+  .sidebar-logo {
+    padding: 0 20px 20px; font-family: var(--font-display);
+    font-weight: 900; font-size: 14px; letter-spacing: 2px;
+    color: var(--orange); border-bottom: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .sidebar-logo svg { width: 16px; height: 16px; }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 20px; font-size: 12px; color: rgba(255,255,255,0.35);
+    cursor: default; transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .sidebar-item.active {
+    background: rgba(255,92,26,0.08); color: var(--orange);
+    border-left: 2px solid var(--orange); padding-left: 18px;
+  }
+  .sidebar-item svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .mockup-content { flex: 1; padding: 24px; overflow: hidden; }
+  .mc-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .mc-metric {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px; padding: 14px;
+  }
+  .mc-metric-label { font-size: 9px; color: rgba(255,255,255,0.3); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .mc-metric-val { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: var(--text); line-height: 1; }
+  .mc-metric-val.orange { color: var(--orange); }
+  .mc-metric-val.red { color: #E24B4A; }
+  .mc-metric-delta { font-size: 10px; margin-top: 4px; }
+  .mc-metric-delta.up { color: #639922; }
+  .mc-metric-delta.down { color: #E24B4A; }
+
+  .mc-table-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .mc-table-title { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+  .mc-alert-badge {
+    font-size: 9px; padding: 2px 8px; background: rgba(226,75,74,0.15);
+    color: #E24B4A; border-radius: 2px; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .mc-table { width: 100%; border-collapse: collapse; }
+  .mc-table th {
+    font-size: 9px; color: rgba(255,255,255,0.25); text-transform: uppercase;
+    letter-spacing: 1px; padding: 6px 8px; text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .mc-table td {
+    font-size: 11px; color: rgba(255,255,255,0.6);
+    padding: 8px 8px; border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .mc-table td:first-child { color: rgba(255,255,255,0.85); font-weight: 500; }
+  .status-dot-row { display: flex; align-items: center; gap: 6px; }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .status-dot.green { background: #639922; }
+  .status-dot.red   { background: #E24B4A; }
+  .status-dot.amber { background: #EF9F27; }
+
+  .admin-modules {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--line);
+  }
+  .admin-module {
+    background: var(--bg); padding: 32px 28px;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.5s, transform 0.5s, background 0.2s;
+    position: relative;
+  }
+  .admin-module.visible { opacity: 1; transform: translateY(0); }
+  .admin-module:nth-child(2) { transition-delay: 0.08s; }
+  .admin-module:nth-child(3) { transition-delay: 0.16s; }
+  .admin-module:nth-child(4) { transition-delay: 0.1s; }
+  .admin-module:nth-child(5) { transition-delay: 0.18s; }
+  .admin-module:nth-child(6) { transition-delay: 0.26s; }
+  .admin-module:hover { background: var(--bg3); }
+  .admin-module::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--orange); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .admin-module:hover::after { transform: scaleX(1); }
+  .admin-module-icon {
+    width: 36px; height: 36px; margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,92,26,0.25); border-radius: 4px;
+    background: rgba(255,92,26,0.06);
+  }
+  .admin-module-icon svg { width: 18px; height: 18px; }
+  .admin-module-name {
+    font-family: var(--font-display); font-weight: 700; font-size: 18px;
+    text-transform: uppercase; letter-spacing: 1px; color: var(--text); margin-bottom: 8px;
+  }
+  .admin-module-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+  .admin-module-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .admin-tag {
+    font-size: 10px; padding: 2px 8px; border-radius: 2px;
+    background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.35);
+    letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.06);
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<canvas id="grid-canvas"></canvas>
+<canvas id="particle-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="o-ring">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <circle cx="12" cy="12" r="10" stroke="#FF5C1A" stroke-width="1.5"
+          stroke-dasharray="62.8" stroke-dashoffset="15.7"
+          stroke-linecap="round" transform="rotate(-90 12 12)"/>
+      </svg>
+    </div>
+    GYMTRACKO
+  </a>
+  <ul class="nav-links">
+    <li><a href="#problem">El problema</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#admin">Panel admin</a></li>
+    <li><a href="#retention">Retención</a></li>
+    <li><a href="#timeline">Cómo funciona</a></li>
+  </ul>
+  <button class="nav-cta">Ver demo</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">El futuro de tu gimnasio</div>
+  <h1 class="hero-title">
+    <span class="line1 glitch" data-text="RETENCIÓN">RETENCIÓN</span>
+    <span class="line2">AUTOMATIZADA</span>
+    <span class="line3">para gimnasios que no se quedan atrás</span>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      <strong>GYMTRACKO</strong> convierte datos de entrenamiento en acciones que mantienen a tus alumnos activos, comprometidos y pagando.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">3<span>×</span></div>
+        <div class="hero-stat-label">más retención</div>
+      </div>
+      <div>
+        <div class="hero-stat-num"><span>-</span>60<span>%</span></div>
+        <div class="hero-stat-label">cancelaciones</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">100<span>%</span></div>
+        <div class="hero-stat-label">digital</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker" id="ticker">
+    <span class="ticker-item">Optimización<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Organización<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Operación<span class="ticker-dot"></span></span>
+    <span class="ticker-item">FitCoins<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Retención<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Racha Semanal<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Check-in Digital<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Récords Personales<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Optimización<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Organización<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Operación<span class="ticker-dot"></span></span>
+    <span class="ticker-item">FitCoins<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Retención<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Racha Semanal<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Check-in Digital<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Récords Personales<span class="ticker-dot"></span></span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="problem-left">
+    <div class="section-tag">// 01 — El problema</div>
+    <h2 class="problem-title">
+      Pierdes<br>alumnos y ni<br><em>lo sabes.</em>
+    </h2>
+    <p class="problem-body">
+      La mayoría de los gimnasios descubre que va a perder un alumno solo cuando vence el pago. Para entonces, el alumno ya decidió. Ya dejó de entrenar. Ya comparó con la competencia.<br><br>
+      GYMTRACKO detecta la señal antes de la baja.
+    </p>
+  </div>
+  <div class="problem-right">
+    <div class="stat-block">
+      <div class="stat-block-num">60%</div>
+      <div class="stat-block-label">de los alumnos abandona el gimnasio en los primeros 3 meses. Sin app, sin sistema, sin aviso.</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-num">$480</div>
+      <div class="stat-block-label">es el LTV perdido por cada alumno que se va en el mes 3 en lugar del mes 12. Multiplica por 20 bajas al mes.</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-num">7 días</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="features-header">
+    <h2 class="features-title">Lo que el<br><em>app hace</em></h2>
+    <p class="features-sub">Cada funcionalidad fue diseñada para una sola cosa: que el alumno vuelva.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-num">01</div>
+      <div class="feature-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="16" stroke="#FF5C1A" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <circle cx="20" cy="20" r="8" fill="#FF5C1A" fill-opacity="0.15" stroke="#FF5C1A" stroke-width="1"/>
+          <path d="M20 12v8l5 3" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="feature-name">Racha Semanal</div>
+      <div class="feature-desc">El alumno ve su racha de semanas consecutivas. El miedo a perder el streak es más poderoso que cualquier descuento para mantener el compromiso.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">02</div>
+      <div class="feature-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <rect x="6" y="6" width="28" height="28" rx="4" stroke="#FF5C1A" stroke-width="1.5"/>
+          <path d="M13 20h14M13 14h8M13 26h10" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="feature-name">FitCoins</div>
+      <div class="feature-desc">Sistema de fidelización con moneda interna. El alumno acumula puntos entrenando, reservando clases y completando cardio — y los canjea por recompensas que tú defines.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">03</div>
+      <div class="feature-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <path d="M8 32L14 20l6 6 6-10 6 4" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="32" cy="10" r="4" fill="#FF5C1A" fill-opacity="0.2" stroke="#FF5C1A" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="feature-name">Progreso Visible</div>
+      <div class="feature-desc">Récords personales, volumen por grupo muscular y sugerencias automáticas de sobrecarga progresiva. El alumno ve evolución concreta en cada entrenamiento.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">04</div>
+      <div class="feature-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <rect x="10" y="8" width="20" height="24" rx="3" stroke="#FF5C1A" stroke-width="1.5"/>
+          <path d="M15 16h10M15 21h6" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="30" cy="30" r="6" fill="#FF5C1A"/>
+          <path d="M28 30l1.5 1.5L32 28" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="feature-name">Check-in con PIN</div>
+      <div class="feature-desc">El instructor genera un PIN de 4 dígitos en la clase. El alumno registra su asistencia en el app y gana FitCoins. Fin del control manual en recepción.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">05</div>
+      <div class="feature-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <path d="M20 8C13.4 8 8 13.4 8 20s5.4 12 12 12 12-5.4 12-12" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M28 8l4 4-4 4" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 20l-4-4" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="feature-name">Planes del Trainer</div>
+      <div class="feature-desc">El alumno solicita una rutina personalizada directo desde el app. El personal la entrega digitalmente. Sin papel, sin WhatsApp, sin pérdida de información.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">06</div>
+      <div class="feature-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <path d="M12 20c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M20 8v4M20 28v4M8 20h4M28 20h4" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="3" fill="#FF5C1A"/>
+        </svg>
+      </div>
+      <div class="feature-name">Notificaciones Inteligentes</div>
+      <div class="feature-desc">Alerta automática cuando el alumno lleva 3+ días sin entrenar. Aviso de racha en riesgo. Recordatorio 30 min antes de cada clase reservada.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN PANEL -->
+<section id="admin">
+  <div class="admin-header">
+    <div>
+      <div class="section-tag" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;">// 02 — Panel de administración</div>
+      <h2 class="admin-title">Tú también<br>tienes el<br><em>control total.</em></h2>
+    </div>
+    <p class="admin-intro">
+      GYMTRACKO no es solo para el alumno. Como dueño o encargado, tenés un panel completo para gestionar <strong>alumnos, clases, recompensas y canjes</strong> — todo en tiempo real, sin planillas ni papel.
+    </p>
+  </div>
+
+  <!-- DASHBOARD MOCKUP -->
+  <div class="admin-mockup" id="admin-mockup">
+    <div class="mockup-topbar">
+      <div class="mockup-dot" style="background:#E24B4A"></div>
+      <div class="mockup-dot" style="background:#EF9F27"></div>
+      <div class="mockup-dot" style="background:#639922"></div>
+      <div class="mockup-title-bar">GYMTRACKO — Panel de administración</div>
+    </div>
+    <div class="mockup-body">
+      <div class="mockup-sidebar">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#FF5C1A" stroke-width="1.2" stroke-dasharray="37.7" stroke-dashoffset="9.4" transform="rotate(-90 8 8)"/></svg>
+          GYMTRACKO
+        </div>
+        <div class="sidebar-item active">
+          <svg viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="#FF5C1A" stroke-width="1.2"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="#FF5C1A" stroke-width="1.2"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="#FF5C1A" stroke-width="1.2"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="#FF5C1A" stroke-width="1.2"/></svg>
+          Dashboard
+        </div>
+        <div class="sidebar-item">
+          <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="2.5" stroke="currentColor" stroke-width="1.2"/><path d="M2 12c0-2.8 2.2-4 5-4s5 1.2 5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Alumnos
+        </div>
+        <div class="sidebar-item">
+          <svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 1v2M10 1v2M1 6h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Clases
+        </div>
+        <div class="sidebar-item">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 4h10M2 7h7M2 10h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Solicitudes
+        </div>
+        <div class="sidebar-item">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 4H13l-3.5 2.5 1.3 4L7 9l-3.8 2.5 1.3-4L1 5h4.5z" stroke="currentColor" stroke-width="1.1"/></svg>
+          Recompensas
+        </div>
+        <div class="sidebar-item">
+          <svg viewBox="0 0 14 14" fill="none"><rect x="2" y="4" width="10" height="7" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5 4V3a2 2 0 0 1 4 0v1" stroke="currentColor" stroke-width="1.2"/></svg>
+          Canjes
+        </div>
+      </div>
+      <div class="mockup-content">
+        <div class="mc-row">
+          <div class="mc-metric">
+            <div class="mc-metric-label">Alumnos activos</div>
+            <div class="mc-metric-val">247</div>
+            <div class="mc-metric-delta up">↑ 12 este mes</div>
+          </div>
+          <div class="mc-metric">
+            <div class="mc-metric-label">Inactivos +7 días</div>
+            <div class="mc-metric-val red">18</div>
+            <div class="mc-metric-delta down">↑ 3 esta semana</div>
+          </div>
+          <div class="mc-metric">
+            <div class="mc-metric-label">FitCoins en circulación</div>
+            <div class="mc-metric-val orange">34.8k</div>
+            <div class="mc-metric-delta up">↑ 2.1k esta semana</div>
+          </div>
+          <div class="mc-metric">
+            <div class="mc-metric-label">Clases hoy</div>
+            <div class="mc-metric-val">6</div>
+            <div class="mc-metric-delta" style="color:rgba(255,255,255,0.3)">3 con cupo disponible</div>
+          </div>
+          <div class="mc-metric">
+            <div class="mc-metric-label">Canjes pendientes</div>
+            <div class="mc-metric-val orange">9</div>
+            <div class="mc-metric-delta down">Requieren entrega</div>
+          </div>
+          <div class="mc-metric">
+            <div class="mc-metric-label">Solicitudes rutina</div>
+            <div class="mc-metric-val">4</div>
+            <div class="mc-metric-delta" style="color:rgba(255,255,255,0.3)">Sin responder</div>
+          </div>
+        </div>
+        <div class="mc-table-header">
+          <span class="mc-table-title">Alertas de inactividad</span>
+          <span class="mc-alert-badge">18 en riesgo</span>
+        </div>
+        <table class="mc-table">
+          <thead>
+            <tr>
+              <th>Alumno</th>
+              <th>Último entrenamiento</th>
+              <th>Racha</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Valentina Ríos</td>
+              <td>Hace 11 días</td>
+              <td>4 semanas ❌</td>
+              <td><div class="status-dot-row"><div class="status-dot red"></div>En riesgo</div></td>
+            </tr>
+            <tr>
+              <td>Marcos Ibáñez</td>
+              <td>Hace 8 días</td>
+              <td>7 semanas ⚠️</td>
+              <td><div class="status-dot-row"><div class="status-dot amber"></div>Alerta</div></td>
+            </tr>
+            <tr>
+              <td>Luciana Ferre</td>
+              <td>Hace 7 días</td>
+              <td>2 semanas ⚠️</td>
+              <td><div class="status-dot-row"><div class="status-dot amber"></div>Alerta</div></td>
+            </tr>
+            <tr>
+              <td>Diego Ortega</td>
+              <td>Ayer</td>
+              <td>12 semanas ✓</td>
+              <td><div class="status-dot-row"><div class="status-dot green"></div>Activo</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE GRID -->
+  <div class="admin-modules">
+    <div class="admin-module" id="am1">
+      <div class="admin-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="7" height="7" rx="1" stroke="#FF5C1A" stroke-width="1.2"/><rect x="10" y="1" width="7" height="7" rx="1" stroke="#FF5C1A" stroke-width="1.2"/><rect x="1" y="10" width="7" height="7" rx="1" stroke="#FF5C1A" stroke-width="1.2"/><rect x="10" y="10" width="7" height="7" rx="1" stroke="#FF5C1A" stroke-width="1.2"/></svg>
+      </div>
+      <div class="admin-module-name">Dashboard</div>
+      <div class="admin-module-desc">6 métricas en tiempo real: activos, inactivos, FitCoins, clases, canjes y solicitudes pendientes.</div>
+      <div class="admin-module-tags">
+        <span class="admin-tag">Tiempo real</span>
+        <span class="admin-tag">Alertas automáticas</span>
+        <span class="admin-tag">Frecuencia semanal</span>
+      </div>
+    </div>
+    <div class="admin-module" id="am2">
+      <div class="admin-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="#FF5C1A" stroke-width="1.2"/><path d="M3 15c0-3.3 2.7-5 6-5s6 1.7 6 5" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="admin-module-name">Alumnos</div>
+      <div class="admin-module-desc">Listado completo con búsqueda y filtro. Alta de socios. Ficha individual con 5 pestañas de detalle.</div>
+      <div class="admin-module-tags">
+        <span class="admin-tag">Búsqueda/filtro</span>
+        <span class="admin-tag">Alta de socios</span>
+        <span class="admin-tag">Historial completo</span>
+      </div>
+    </div>
+    <div class="admin-module" id="am3">
+      <div class="admin-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="1" y="2" width="16" height="14" rx="1.5" stroke="#FF5C1A" stroke-width="1.2"/><path d="M5 1v2M13 1v2M1 7h16" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="admin-module-name">Clases</div>
+      <div class="admin-module-desc">Vista calendario y lista. Crear, editar y eliminar clases. Soporte para creación multi-día en un solo paso.</div>
+      <div class="admin-module-tags">
+        <span class="admin-tag">Vista calendario</span>
+        <span class="admin-tag">CRUD completo</span>
+        <span class="admin-tag">Multi-día</span>
+      </div>
+    </div>
+    <div class="admin-module" id="am4">
+      <div class="admin-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><path d="M2 5h14M2 9h9M2 13h6" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="admin-module-name">Solicitudes</div>
+      <div class="admin-module-desc">Responde pedidos de rutina personalizada desde el panel. Historial de cumplimiento por entrenador.</div>
+      <div class="admin-module-tags">
+        <span class="admin-tag">Respuesta directa</span>
+        <span class="admin-tag">Historial</span>
+        <span class="admin-tag">Por entrenador</span>
+      </div>
+    </div>
+    <div class="admin-module" id="am5">
+      <div class="admin-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><path d="M9 2l1.5 4.5H15l-4 3 1.5 4.5L9 11.5l-3.5 2.5 1.5-4.5-4-3h4.5z" stroke="#FF5C1A" stroke-width="1.1"/></svg>
+      </div>
+      <div class="admin-module-name">Recompensas</div>
+      <div class="admin-module-desc">Gestiona el catálogo completo: crea, edita, controla stock, define niveles y costos en FitCoins.</div>
+      <div class="admin-module-tags">
+        <span class="admin-tag">CRUD catálogo</span>
+        <span class="admin-tag">Control de stock</span>
+        <span class="admin-tag">Niveles y costos</span>
+      </div>
+    </div>
+    <div class="admin-module" id="am6">
+      <div class="admin-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="10" rx="1.2" stroke="#FF5C1A" stroke-width="1.2"/><path d="M6 5V4a3 3 0 0 1 6 0v1" stroke="#FF5C1A" stroke-width="1.2"/><path d="M9 10v2M7 11h4" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="admin-module-name">Canjes</div>
+      <div class="admin-module-desc">Busca por código de canje, confirma entrega y consulta el historial de pendientes y entregados.</div>
+      <div class="admin-module-tags">
+        <span class="admin-tag">Búsqueda por código</span>
+        <span class="admin-tag">Confirmar entrega</span>
+        <span class="admin-tag">Historial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RETENTION -->
+<section id="retention">
+  <div class="retention-inner">
+    <div class="retention-visual">
+      <div class="retention-ring-wrap">
+        <svg viewBox="0 0 280 280" fill="none">
+          <circle cx="140" cy="140" r="110" stroke="rgba(255,255,255,0.05)" stroke-width="20"/>
+          <circle cx="140" cy="140" r="110" stroke="rgba(255,92,26,0.15)" stroke-width="20"
+            stroke-dasharray="691" stroke-dashoffset="0"/>
+          <circle cx="140" cy="140" r="110" stroke="#FF5C1A" stroke-width="20"
+            stroke-dasharray="691" stroke-dashoffset="173"
+            stroke-linecap="round" transform="rotate(-90 140 140)"
+            id="ring-arc"/>
+          <circle cx="140" cy="140" r="80" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <circle cx="140" cy="140" r="60" stroke="rgba(255,92,26,0.1)" stroke-width="1" stroke-dasharray="3 6"/>
+        </svg>
+        <div class="ring-label">
+          <div class="ring-pct">75%</div>
+          <div class="ring-sub">retención en 6 meses</div>
+        </div>
+      </div>
+      <div class="ring-compare">
+        <div class="ring-legend"><div class="ring-dot" style="background:#FF5C1A"></div>Con GYMTRACKO</div>
+        <div class="ring-legend"><div class="ring-dot" style="background:rgba(255,255,255,0.2)"></div>Media del sector (40%)</div>
+      </div>
+    </div>
+    <div class="retention-right">
+      <div class="section-tag">// 03 — Sistema de fidelización</div>
+      <h2 class="retention-title">
+        FitCoins:<br>tu alumno<br><em>no cancela</em><br>lo que acumuló.
+      </h2>
+      <p class="retention-body">
+        La psicología del costo hundido trabaja a tu favor. El alumno con 500 FitCoins lo piensa dos veces antes de cancelar la membresía. Es el mismo principio de las millas de tarjeta de crédito — pero para gimnasios.
+      </p>
+      <div class="fitcoin-row">
+        <div class="fitcoin-item">
+          <div class="fitcoin-icon">
+            <svg viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="fitcoin-name">Completar entrenamiento</span>
+          <span class="fitcoin-coins">+25 FC</span>
+        </div>
+        <div class="fitcoin-item">
+          <div class="fitcoin-icon">
+            <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#FF5C1A" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="fitcoin-name">Check-in en clase</span>
+          <span class="fitcoin-coins">+15 FC</span>
+        </div>
+        <div class="fitcoin-item">
+          <div class="fitcoin-icon">
+            <svg viewBox="0 0 18 18" fill="none"><path d="M9 2l1.8 5.4H17l-4.9 3.6 1.8 5.4L9 13l-4.9 3.4 1.8-5.4L1 7.4h6.2z" stroke="#FF5C1A" stroke-width="1.2"/></svg>
+          </div>
+          <span class="fitcoin-name">Mantener racha semanal</span>
+          <span class="fitcoin-coins">+50 FC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="timeline-header">
+    <h2 class="timeline-title">Implementación en<br><em>4 pasos</em></h2>
+  </div>
+  <div class="timeline-steps">
+    <div class="timeline-step">
+      <div class="timeline-dot">01</div>
+      <div class="timeline-step-title">Registro</div>
+      <div class="timeline-step-desc">Configura tu gimnasio, clases y estructura de recompensas en menos de 30 minutos.</div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-dot">02</div>
+      <div class="timeline-step-title">Alumnos</div>
+      <div class="timeline-step-desc">Invita a tus alumnos. Cada uno hace el onboarding y configura su objetivo y días de entrenamiento.</div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-dot">03</div>
+      <div class="timeline-step-title">Activación</div>
+      <div class="timeline-step-desc">Los entrenadores crean planes en el app. El sistema de racha y FitCoins se activa automáticamente.</div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-dot">04</div>
+      <div class="timeline-step-title">Resultados</div>
+      <div class="timeline-step-desc">Monitorea retención, compromiso y alumnos en riesgo de baja en tiempo real.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section id="testimonial">
+  <div class="testimonial-block">
+    <p class="testimonial-quote">
+      "Mi gimnasio dejó de <strong>perder alumnos</strong> en silencio. El app avisa antes. Nosotros actuamos antes."
+    </p>
+    <span class="testimonial-author">Rodrigo Meira · Dueño · Fitness Prime — Buenos Aires</span>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <div class="cta-final-tag">// Empieza hoy</div>
+  <h2 class="cta-final-title">
+    <span>Tu gimnasio</span>
+    <span class="accent">del futuro</span>
+    <span>empieza aquí.</span>
+  </h2>
+  <div class="cta-buttons">
+    <button class="btn-primary">Ver demo gratis</button>
+    <button class="btn-secondary">Hablar con un especialista</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">GYMTRACKO</div>
+  <div class="footer-os">
+    <span>O</span>ptimización &nbsp;·&nbsp; <span>O</span>rganización &nbsp;·&nbsp; <span>O</span>peración
+  </div>
+  <div class="footer-copy">© 2025 GYMTRACKO</div>
+</footer>
+
+<script>
+/* CURSOR */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+/* GRID CANVAS */
+const gc=document.getElementById('grid-canvas');
+const gctx=gc.getContext('2d');
+function drawGrid(){
+  gc.width=window.innerWidth; gc.height=window.innerHeight;
+  gctx.clearRect(0,0,gc.width,gc.height);
+  const sz=60;
+  gctx.strokeStyle='rgba(255,92,26,0.12)';
+  gctx.lineWidth=0.5;
+  for(let x=0;x<gc.width;x+=sz){
+    gctx.beginPath(); gctx.moveTo(x,0); gctx.lineTo(x,gc.height); gctx.stroke();
+  }
+  for(let y=0;y<gc.height;y+=sz){
+    gctx.beginPath(); gctx.moveTo(0,y); gctx.lineTo(gc.width,y); gctx.stroke();
+  }
+  // Highlight intersection near center
+  const cx=Math.floor(gc.width/2/sz)*sz;
+  const cy=Math.floor(gc.height/2/sz)*sz;
+  gctx.strokeStyle='rgba(255,92,26,0.4)';
+  gctx.lineWidth=1;
+  gctx.beginPath(); gctx.moveTo(cx-20,cy); gctx.lineTo(cx+20,cy); gctx.stroke();
+  gctx.beginPath(); gctx.moveTo(cx,cy-20); gctx.lineTo(cx,cy+20); gctx.stroke();
+}
+drawGrid();
+window.addEventListener('resize',drawGrid);
+
+/* PARTICLES */
+const pc=document.getElementById('particle-canvas');
+const pctx=pc.getContext('2d');
+const particles=[];
+const N=80;
+function resize(){pc.width=window.innerWidth;pc.height=window.innerHeight;}
+resize();
+window.addEventListener('resize',resize);
+for(let i=0;i<N;i++){
+  particles.push({
+    x:Math.random()*window.innerWidth,
+    y:Math.random()*window.innerHeight,
+    r:Math.random()*1.5+0.3,
+    vx:(Math.random()-0.5)*0.3,
+    vy:(Math.random()-0.5)*0.3,
+    alpha:Math.random()*0.5+0.1,
+    orange:Math.random()<0.2
+  });
+}
+function animParticles(){
+  pctx.clearRect(0,0,pc.width,pc.height);
+  particles.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0)p.x=pc.width; if(p.x>pc.width)p.x=0;
+    if(p.y<0)p.y=pc.height; if(p.y>pc.height)p.y=0;
+    pctx.beginPath();
+    pctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    pctx.fillStyle=p.orange?`rgba(255,92,26,${p.alpha})`:`rgba(240,238,232,${p.alpha*0.4})`;
+    pctx.fill();
+  });
+  // Draw connections
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x;
+      const dy=particles[i].y-particles[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<120){
+        pctx.beginPath();
+        pctx.moveTo(particles[i].x,particles[i].y);
+        pctx.lineTo(particles[j].x,particles[j].y);
+        const a=(1-d/120)*0.06;
+        pctx.strokeStyle=`rgba(255,92,26,${a})`;
+        pctx.lineWidth=0.5;
+        pctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+/* SCROLL REVEAL */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:0.15});
+document.querySelectorAll('.stat-block,.feature-card').forEach(el=>observer.observe(el));
+
+/* ADMIN modules observe */
+document.querySelectorAll('.admin-module').forEach(el=>observer.observe(el));
+const adminMockup=document.getElementById('admin-mockup');
+if(adminMockup) observer.observe(adminMockup);
+
+/* RING ANIMATION on scroll */
+const ringObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const arc=document.getElementById('ring-arc');
+      if(arc){
+        arc.style.transition='stroke-dashoffset 1.5s cubic-bezier(0.4,0,0.2,1)';
+        arc.style.strokeDashoffset='173';
+      }
+    }
+  });
+},{threshold:0.3});
+const ringEl=document.querySelector('.retention-ring-wrap');
+if(ringEl){
+  document.getElementById('ring-arc').style.strokeDashoffset='691';
+  ringObs.observe(ringEl);
+}
+
+/* COUNTER ANIMATION */
+function animateCounter(el,target,suffix=''){
+  let start=0; const dur=1800;
+  const t0=performance.now();
+  function step(t){
+    const p=Math.min((t-t0)/dur,1);
+    const ease=1-Math.pow(1-p,3);
+    el.textContent=Math.round(start+(target-start)*ease)+suffix;
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const statNums=document.querySelectorAll('.stat-block-num');
+const cObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const txt=e.target.textContent;
+      if(txt.includes('%')){
+        const n=parseInt(txt);
+        animateCounter(e.target,n,'%');
+      } else if(txt.includes('días')){
+        animateCounter(e.target,7,' días');
+      } else if(txt.includes('R$')){
+        e.target.innerHTML='R$<span id="cv">0</span>';
+        animateCounter(document.getElementById('cv'),480,'');
+      }
+      cObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+statNums.forEach(el=>cObs.observe(el));
+
+/* NAV scroll effect */
+window.addEventListener('scroll',()=>{
+  const nav=document.querySelector('nav');
+  if(window.scrollY>60){
+    nav.style.backdropFilter='blur(12px)';
+    nav.style.background='rgba(8,10,12,0.92)';
+  } else {
+    nav.style.backdropFilter='blur(0)';
+    nav.style.background='linear-gradient(to bottom, rgba(8,10,12,0.95) 0%, transparent 100%)';
+  }
+});
+</script>
+</body>
+</html>
