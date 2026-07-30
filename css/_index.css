@@ -91,6 +91,20 @@
   }
   .nav-cta:hover { background: var(--orange); color: #000; }
 
+  .nav-toggle {
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 32px; height: 32px; padding: 0;
+    background: none; border: none; cursor: none;
+    position: relative; z-index: 100;
+  }
+  .nav-toggle span {
+    display: block; width: 100%; height: 1px; background: var(--text);
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
   /* SECTIONS */
   section { position: relative; z-index: 10; }
 
@@ -624,4 +638,160 @@
     font-size: 10px; padding: 2px 8px; border-radius: 2px;
     background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.35);
     letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ============ RESPONSIVE ============ */
+
+  /* Disable the mouse-follow cursor on touch devices, restore native cursor */
+  @media (hover: none), (pointer: coarse) {
+    body, .nav-cta, .btn-primary, .btn-secondary, .nav-toggle { cursor: auto; }
+    #cursor, #cursor-ring { display: none; }
+  }
+
+  /* TABLET */
+  @media (max-width: 1024px) {
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 14px; flex-wrap: wrap; row-gap: 6px; }
+    .nav-links a { font-size: 11px; letter-spacing: 1px; }
+    .nav-cta { padding: 9px 18px; font-size: 12px; }
+
+    #hero { padding: 0 32px 64px; }
+    .hero-bottom { gap: 24px; }
+    .hero-desc { max-width: 300px; }
+    .hero-stats { gap: 28px; flex-wrap: wrap; row-gap: 16px; }
+    .hero-stat-num { font-size: 40px; }
+
+    #problem {
+      padding: 90px 32px;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    #features { padding: 90px 32px; }
+    .features-header { margin-bottom: 48px; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .feature-card { padding: 32px 24px; }
+
+    #admin { padding: 90px 32px; }
+    .admin-header {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .admin-intro { text-align: left; }
+    .admin-mockup { margin-bottom: 40px; }
+    .mockup-sidebar { width: 150px; padding: 16px 0; }
+    .mockup-content { padding: 20px; }
+    .admin-modules { grid-template-columns: repeat(2, 1fr); }
+    .admin-module { padding: 28px 24px; }
+    .mc-row { grid-template-columns: repeat(2, 1fr); }
+    .mc-table th, .mc-table td { padding: 8px 6px; }
+
+    #retention { padding: 90px 32px; }
+    .retention-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .retention-ring-wrap { width: 240px; height: 240px; }
+    .ring-pct { font-size: 52px; }
+
+    #timeline { padding: 90px 32px; }
+    .timeline-steps { grid-template-columns: repeat(2, 1fr); row-gap: 48px; }
+    .timeline-steps::before { display: none; }
+
+    #cta-final { padding: 100px 32px; }
+    .cta-buttons { flex-wrap: wrap; justify-content: center; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-toggle { display: flex; }
+    .nav-links {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 99;
+      flex-direction: column; gap: 0;
+      background: rgba(8,10,12,0.98); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 88px 32px 32px;
+      transform: translateY(-100%); opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .nav-links li { border-bottom: 1px solid var(--line); }
+    .nav-links a { display: block; padding: 16px 0; font-size: 14px; }
+    .nav-cta { padding: 8px 18px; font-size: 12px; }
+
+    #hero { padding: 0 20px 56px; min-height: 100svh; }
+    .hero-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .hero-stats { gap: 32px; flex-wrap: wrap; }
+    .hero-desc { max-width: none; }
+
+    #problem { padding: 64px 20px; }
+    .problem-right { gap: 12px; }
+
+    #features { padding: 64px 20px; }
+    .features-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .features-sub { text-align: left; max-width: none; }
+    .features-grid { grid-template-columns: 1fr; }
+
+    #admin { padding: 64px 20px; }
+    .admin-modules { grid-template-columns: 1fr; }
+    .mc-row { grid-template-columns: repeat(2, 1fr); }
+    .mockup-body { flex-direction: column; }
+    .mockup-sidebar {
+      width: 100%;
+      display: flex; flex-wrap: wrap; gap: 4px;
+      border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 12px;
+    }
+    .sidebar-logo { display: none; }
+    .sidebar-item { padding: 6px 10px; }
+    .sidebar-item.active { padding-left: 10px; border-left: none; border-bottom: 2px solid var(--orange); }
+    .mc-table { display: block; overflow-x: auto; }
+
+    #retention { padding: 64px 20px; }
+    .retention-ring-wrap { width: 220px; height: 220px; }
+    .ring-pct { font-size: 48px; }
+    .ring-compare { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .fitcoin-item { flex-wrap: wrap; }
+
+    #timeline { padding: 64px 20px; }
+    .timeline-steps { grid-template-columns: 1fr; row-gap: 40px; }
+    .timeline-step { padding: 0 12px; }
+
+    #testimonial { padding: 56px 20px; }
+
+    #cta-final { padding: 80px 20px; }
+    #cta-final::before { font-size: 320px; }
+    .cta-buttons { flex-direction: column; width: 100%; }
+    .btn-primary, .btn-secondary { padding: 16px 32px; }
+
+    footer {
+      flex-direction: column; gap: 16px;
+      padding: 32px 20px; text-align: center;
+    }
+    .footer-os { flex-wrap: wrap; justify-content: center; }
+  }
+
+  /* SMALL MOBILE */
+  @media (max-width: 480px) {
+    .hero-stats { gap: 24px; }
+    .hero-stat-num { font-size: 36px; }
+
+    .stat-block { padding: 20px; }
+    .stat-block-num { font-size: 40px; }
+
+    .mc-row { grid-template-columns: 1fr; }
+
+    #cta-final::before { font-size: 200px; }
   }
