@@ -16,6 +16,15 @@
 <canvas id="grid-canvas"></canvas>
 <canvas id="particle-canvas"></canvas>
 
+<!-- HERO PHONE (starts in Hero, sticks in top mode through Funcionalidades, then freezes) -->
+<div class="hero-phone" id="hero-phone">
+  <div class="hero-phone-inner" id="hero-phone-inner">
+    <div class="hero-phone-notch"></div>
+    <div class="hero-phone-screen" style="background-image:url('./teste.jpg'), linear-gradient(160deg, var(--bg3), var(--bg2));"></div>
+  </div>
+  <div class="hero-phone-glow"></div>
+</div>
+
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
@@ -30,13 +39,64 @@
     GYMTRACKO
   </a>
   <ul class="nav-links" id="nav-links">
-    <li><a href="#problem">El problema</a></li>
-    <li><a href="#features">Features</a></li>
+    <li class="nav-dropdown" id="services-dropdown">
+      <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="services-menu">
+        Servicios
+        <svg class="nav-dropdown-arrow" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <ul class="nav-dropdown-menu" id="services-menu">
+        <li>
+          <button type="button" class="nav-service-item js-open-demo" data-business="Gimnasio tradicional">
+            <span class="nav-service-icon">
+              <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="16" width="6" height="8" rx="1.5" stroke="#FF5C1A" stroke-width="1.5"/><rect x="30" y="16" width="6" height="8" rx="1.5" stroke="#FF5C1A" stroke-width="1.5"/><rect x="10" y="18" width="4" height="4" stroke="#FF5C1A" stroke-width="1.5"/><rect x="26" y="18" width="4" height="4" stroke="#FF5C1A" stroke-width="1.5"/><path d="M14 20h12" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <span class="nav-service-body">
+              <span class="nav-service-name">Gimnasios y cadenas</span>
+              <span class="nav-service-desc">Rachas, FitCoins y alertas de inactividad que mantienen a tus alumnos activos en todas las sedes.</span>
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="nav-service-item js-open-demo" data-business="Estudio de Yoga / Pilates">
+            <span class="nav-service-icon">
+              <svg viewBox="0 0 40 40" fill="none"><path d="M20 8c0 6-4 8-4 14a4 4 0 008 0c0-6-4-8-4-14z" stroke="#FF5C1A" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 20c4 2 6 4 6 8M30 20c-4 2-6 4-6 8" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <span class="nav-service-body">
+              <span class="nav-service-name">Studio</span>
+              <span class="nav-service-desc">Reservas de clases, pagos y fidelización desde un solo panel, sin planillas ni WhatsApp.</span>
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="nav-service-item js-open-demo" data-business="Personal Trainer">
+            <span class="nav-service-icon">
+              <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="5" stroke="#FF5C1A" stroke-width="1.5"/><path d="M9 32c0-6.6 5-10 11-10s11 3.4 11 10" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <span class="nav-service-body">
+              <span class="nav-service-name">Personal trainers</span>
+              <span class="nav-service-desc">Entrega rutinas digitales, seguí el progreso de cada cliente y cobrá todo desde el celular.</span>
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="nav-service-item js-open-demo" data-business="Box de CrossFit">
+            <span class="nav-service-icon">
+              <svg viewBox="0 0 40 40" fill="none"><path d="M16 14c0-3 2-5 4-5s4 2 4 5" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="24" r="10" stroke="#FF5C1A" stroke-width="1.5"/></svg>
+            </span>
+            <span class="nav-service-body">
+              <span class="nav-service-name">Box de CrossFit</span>
+              <span class="nav-service-desc">WODs, rankings y rachas semanales que mantienen a tu comunidad entrenando y compitiendo.</span>
+            </span>
+          </button>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#features">App del alumno</a></li>
     <li><a href="#admin">Panel admin</a></li>
     <li><a href="#retention">Retención</a></li>
     <li><a href="#timeline">Cómo funciona</a></li>
   </ul>
-  <button class="nav-cta">Ver demo</button>
+  <button class="nav-cta js-open-demo">Ver demo</button>
   <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">
     <span></span><span></span><span></span>
   </button>
@@ -44,6 +104,13 @@
 
 <!-- HERO -->
 <section id="hero">
+  <div class="hero-bg-video">
+    <video autoplay muted loop playsinline>
+      <source src="./video/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-bg-overlay"></div>
+  </div>
+
   <div class="hero-eyebrow">El futuro de tu gimnasio</div>
   <h1 class="hero-title">
     <span class="line1 glitch" data-text="RETENCIÓN">RETENCIÓN</span>
@@ -100,35 +167,41 @@
 <!-- PROBLEM -->
 <section id="problem">
   <div class="problem-left">
-    <div class="section-tag">// 01 — El problema</div>
+    <div class="section-tag">// 01 — El motivo #1 de cancelación</div>
     <h2 class="problem-title">
-      Pierdes<br>alumnos y ni<br><em>lo sabes.</em>
+      Cancelan por<br>falta de<br><em>hábito.</em>
     </h2>
     <p class="problem-body">
-      La mayoría de los gimnasios descubre que va a perder un alumno solo cuando vence el pago. Para entonces, el alumno ya decidió. Ya dejó de entrenar. Ya comparó con la competencia.<br><br>
-      GYMTRACKO detecta la señal antes de la baja.
+      No es el precio. No es la competencia. El alumno cancela cuando pierde el hábito de entrenar: falta una semana, después dos, deja de ver resultados y la membresía se vuelve un gasto que no usa.<br><br>
+      GYMTRACKO interviene antes de que el hábito se rompa.
     </p>
   </div>
   <div class="problem-right">
     <div class="stat-block">
-      <div class="stat-block-num">60%</div>
-      <div class="stat-block-label">de los alumnos abandona el gimnasio en los primeros 3 meses. Sin app, sin sistema, sin aviso.</div>
+      <div class="stat-block-num">7 días</div>
+      <div class="stat-block-label">sin pisar el gimnasio es la señal de alerta que dispara la intervención automática, antes de que se pierda el hábito.</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-num">70%</div>
+      <div class="stat-block-label">de las cancelaciones ocurre después de que el alumno rompe su racha de entrenamiento, no al vencer el pago.</div>
     </div>
     <div class="stat-block">
       <div class="stat-block-num">$480</div>
-      <div class="stat-block-label">es el LTV perdido por cada alumno que se va en el mes 3 en lugar del mes 12. Multiplica por 20 bajas al mes.</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-block-num">7 días</div>
+      <div class="stat-block-label">es el LTV perdido por cada alumno que cancela en el mes 3, cuando el hábito nunca llegó a formarse, en lugar del mes 12.</div>
     </div>
   </div>
 </section>
 
 <!-- FEATURES -->
 <section id="features">
+ <div class="features-inner">
+  <div class="features-text">
   <div class="features-header">
-    <h2 class="features-title">Lo que el<br><em>app hace</em></h2>
-    <p class="features-sub">Cada funcionalidad fue diseñada para una sola cosa: que el alumno vuelva.</p>
+    <div>
+      <div class="section-tag" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;">// 02 — App del alumno</div>
+      <h2 class="features-title">Hechas para<br>crear <em>hábito</em></h2>
+    </div>
+    <p class="features-sub">Cada funcionalidad fue diseñada para una sola cosa: que el alumno vuelva mañana también.</p>
   </div>
   <div class="features-grid">
     <div class="feature-card">
@@ -202,18 +275,33 @@
       <div class="feature-name">Notificaciones Inteligentes</div>
       <div class="feature-desc">Alerta automática cuando el alumno lleva 3+ días sin entrenar. Aviso de racha en riesgo. Recordatorio 30 min antes de cada clase reservada.</div>
     </div>
+    <div class="feature-card">
+      <div class="feature-num">07</div>
+      <div class="feature-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <rect x="8" y="8" width="24" height="24" rx="3" stroke="#FF5C1A" stroke-width="1.5"/>
+          <path d="M14 20h9M14 15h7M14 25h5" stroke="#FF5C1A" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M27 12l4 4-9.5 9.5-4.5 1 1-4.5z" fill="#FF5C1A" fill-opacity="0.15" stroke="#FF5C1A" stroke-width="1.2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="feature-name">Rutina Propia</div>
+      <div class="feature-desc">El alumno también puede armar su propia rutina desde cero, eligiendo ejercicios, series, descansos y objetivos — libertad total para quien prefiere entrenar a su manera.</div>
+    </div>
   </div>
+  </div>
+  <div class="features-visual-space" aria-hidden="true"></div>
+ </div>
 </section>
 
 <!-- ADMIN PANEL -->
 <section id="admin">
   <div class="admin-header">
     <div>
-      <div class="section-tag" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;">// 02 — Panel de administración</div>
+      <div class="section-tag" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;">// 03 — Panel de administración</div>
       <h2 class="admin-title">Tú también<br>tienes el<br><em>control total.</em></h2>
     </div>
     <p class="admin-intro">
-      GYMTRACKO no es solo para el alumno. Como dueño o encargado, tenés un panel completo para gestionar <strong>alumnos, clases, recompensas y canjes</strong> — todo en tiempo real, sin planillas ni papel.
+      GYMTRACKO no es solo para el alumno. Como dueño o encargado, tenés un panel completo para gestionar <strong>alumnos, rutinas, agenda, finanzas, staff y recompensas</strong> — todo en tiempo real, sin planillas ni papel.
     </p>
   </div>
 
@@ -241,11 +329,19 @@
         </div>
         <div class="sidebar-item">
           <svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 1v2M10 1v2M1 6h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-          Clases
+          Agenda
         </div>
         <div class="sidebar-item">
           <svg viewBox="0 0 14 14" fill="none"><path d="M2 4h10M2 7h7M2 10h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-          Solicitudes
+          Rutinas
+        </div>
+        <div class="sidebar-item">
+          <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 3.8v6M8.9 5.5c0-.9-.9-1.5-1.9-1.5s-1.9.6-1.9 1.4c0 1.8 3.8.8 3.8 2.6 0 .8-.9 1.4-1.9 1.4s-1.9-.7-1.9-1.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+          Finanzas
+        </div>
+        <div class="sidebar-item">
+          <svg viewBox="0 0 14 14" fill="none"><circle cx="5" cy="4.5" r="1.8" stroke="currentColor" stroke-width="1.1"/><circle cx="10.5" cy="5.2" r="1.4" stroke="currentColor" stroke-width="1"/><path d="M1.2 12c0-2.4 1.6-3.6 3.8-3.6s3.8 1.2 3.8 3.6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M9 9c1.6.2 2.8 1.2 2.8 3.2" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+          Staff
         </div>
         <div class="sidebar-item">
           <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 4H13l-3.5 2.5 1.3 4L7 9l-3.8 2.5 1.3-4L1 5h4.5z" stroke="currentColor" stroke-width="1.1"/></svg>
@@ -340,11 +436,11 @@
         <svg viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="7" height="7" rx="1" stroke="#FF5C1A" stroke-width="1.2"/><rect x="10" y="1" width="7" height="7" rx="1" stroke="#FF5C1A" stroke-width="1.2"/><rect x="1" y="10" width="7" height="7" rx="1" stroke="#FF5C1A" stroke-width="1.2"/><rect x="10" y="10" width="7" height="7" rx="1" stroke="#FF5C1A" stroke-width="1.2"/></svg>
       </div>
       <div class="admin-module-name">Dashboard</div>
-      <div class="admin-module-desc">6 métricas en tiempo real: activos, inactivos, FitCoins, clases, canjes y solicitudes pendientes.</div>
+      <div class="admin-module-desc">Métricas en tiempo real y business analytics: activos, inactivos, alumnos en riesgo de abandono, ingresos y solicitudes pendientes.</div>
       <div class="admin-module-tags">
         <span class="admin-tag">Tiempo real</span>
+        <span class="admin-tag">Prevención de abandono</span>
         <span class="admin-tag">Alertas automáticas</span>
-        <span class="admin-tag">Frecuencia semanal</span>
       </div>
     </div>
     <div class="admin-module" id="am2">
@@ -352,38 +448,62 @@
         <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="#FF5C1A" stroke-width="1.2"/><path d="M3 15c0-3.3 2.7-5 6-5s6 1.7 6 5" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
       </div>
       <div class="admin-module-name">Alumnos</div>
-      <div class="admin-module-desc">Listado completo con búsqueda y filtro. Alta de socios. Ficha individual con 5 pestañas de detalle.</div>
+      <div class="admin-module-desc">Listado completo con búsqueda y filtro. Alta de socios. Ficha individual con historial y evolución de cada alumno.</div>
       <div class="admin-module-tags">
         <span class="admin-tag">Búsqueda/filtro</span>
         <span class="admin-tag">Alta de socios</span>
-        <span class="admin-tag">Historial completo</span>
+        <span class="admin-tag">Evolución y progreso</span>
       </div>
     </div>
     <div class="admin-module" id="am3">
       <div class="admin-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="4" y="3" width="10" height="13" rx="1.2" stroke="#FF5C1A" stroke-width="1.2"/><rect x="6.5" y="1.5" width="5" height="2.5" rx="0.8" stroke="#FF5C1A" stroke-width="1.2"/><path d="M6.5 9l1.5 1.5L12 7" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 12.5h5" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="admin-module-name">Rutinas</div>
+      <div class="admin-module-desc">Crea rutinas 100% personalizadas para cada alumno o respondé sus solicitudes directo desde el panel. Historial de cumplimiento por entrenador.</div>
+      <div class="admin-module-tags">
+        <span class="admin-tag">Rutinas personalizadas</span>
+        <span class="admin-tag">Respuesta a solicitudes</span>
+        <span class="admin-tag">Por entrenador</span>
+      </div>
+    </div>
+    <div class="admin-module" id="am4">
+      <div class="admin-module-icon">
         <svg viewBox="0 0 18 18" fill="none"><rect x="1" y="2" width="16" height="14" rx="1.5" stroke="#FF5C1A" stroke-width="1.2"/><path d="M5 1v2M13 1v2M1 7h16" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
       </div>
-      <div class="admin-module-name">Clases</div>
-      <div class="admin-module-desc">Vista calendario y lista. Crear, editar y eliminar clases. Soporte para creación multi-día en un solo paso.</div>
+      <div class="admin-module-name">Agenda</div>
+      <div class="admin-module-desc">Vista calendario y lista. Programa clases, sesiones personalizadas y turnos de staff. Creación multi-día en un solo paso.</div>
       <div class="admin-module-tags">
         <span class="admin-tag">Vista calendario</span>
         <span class="admin-tag">CRUD completo</span>
         <span class="admin-tag">Multi-día</span>
       </div>
     </div>
-    <div class="admin-module" id="am4">
+    <div class="admin-module" id="am5">
       <div class="admin-module-icon">
-        <svg viewBox="0 0 18 18" fill="none"><path d="M2 5h14M2 9h9M2 13h6" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#FF5C1A" stroke-width="1.2"/><path d="M9 5v8M11.5 7c0-1.1-1.1-2-2.5-2s-2.5.7-2.5 1.8c0 2.4 5 1 5 3.4 0 1.1-1.1 1.8-2.5 1.8s-2.5-.9-2.5-2" stroke="#FF5C1A" stroke-width="1.1" stroke-linecap="round"/></svg>
       </div>
-      <div class="admin-module-name">Solicitudes</div>
-      <div class="admin-module-desc">Responde pedidos de rutina personalizada desde el panel. Historial de cumplimiento por entrenador.</div>
+      <div class="admin-module-name">Finanzas</div>
+      <div class="admin-module-desc">Control de pagos, cuotas y vencimientos. Visualizá el rendimiento de tu negocio con reportes de ingresos en tiempo real.</div>
       <div class="admin-module-tags">
-        <span class="admin-tag">Respuesta directa</span>
-        <span class="admin-tag">Historial</span>
-        <span class="admin-tag">Por entrenador</span>
+        <span class="admin-tag">Control de pagos</span>
+        <span class="admin-tag">Reportes de ingresos</span>
+        <span class="admin-tag">Vencimientos</span>
       </div>
     </div>
-    <div class="admin-module" id="am5">
+    <div class="admin-module" id="am6">
+      <div class="admin-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><circle cx="6" cy="5.5" r="2.3" stroke="#FF5C1A" stroke-width="1.2"/><circle cx="13" cy="6.5" r="1.8" stroke="#FF5C1A" stroke-width="1.1"/><path d="M1.5 15c0-3 2-4.5 4.5-4.5s4.5 1.5 4.5 4.5" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/><path d="M11 11c2 .2 3.5 1.5 3.5 4" stroke="#FF5C1A" stroke-width="1.1" stroke-linecap="round"/></svg>
+      </div>
+      <div class="admin-module-name">Staff</div>
+      <div class="admin-module-desc">Gestioná instructores y personal: roles, permisos, horarios y desempeño, todo desde un mismo lugar.</div>
+      <div class="admin-module-tags">
+        <span class="admin-tag">Roles y permisos</span>
+        <span class="admin-tag">Horarios</span>
+        <span class="admin-tag">Desempeño</span>
+      </div>
+    </div>
+    <div class="admin-module" id="am7">
       <div class="admin-module-icon">
         <svg viewBox="0 0 18 18" fill="none"><path d="M9 2l1.5 4.5H15l-4 3 1.5 4.5L9 11.5l-3.5 2.5 1.5-4.5-4-3h4.5z" stroke="#FF5C1A" stroke-width="1.1"/></svg>
       </div>
@@ -395,7 +515,7 @@
         <span class="admin-tag">Niveles y costos</span>
       </div>
     </div>
-    <div class="admin-module" id="am6">
+    <div class="admin-module" id="am8">
       <div class="admin-module-icon">
         <svg viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="10" rx="1.2" stroke="#FF5C1A" stroke-width="1.2"/><path d="M6 5V4a3 3 0 0 1 6 0v1" stroke="#FF5C1A" stroke-width="1.2"/><path d="M9 10v2M7 11h4" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
       </div>
@@ -437,7 +557,7 @@
       </div>
     </div>
     <div class="retention-right">
-      <div class="section-tag">// 03 — Sistema de fidelización</div>
+      <div class="section-tag">// 04 — Sistema de fidelización</div>
       <h2 class="retention-title">
         FitCoins:<br>tu alumno<br><em>no cancela</em><br>lo que acumuló.
       </h2>
@@ -498,6 +618,70 @@
       <div class="timeline-step-desc">Monitorea retención, compromiso y alumnos en riesgo de baja en tiempo real.</div>
     </div>
   </div>
+
+  <!-- WHAT'S INCLUDED -->
+  <div class="included-header">
+    <div class="section-tag" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:16px;">// Todo incluido</div>
+    <h3 class="included-title">Un ecosistema completo,<br><em>no solo una app.</em></h3>
+  </div>
+  <div class="included-modules">
+    <div class="included-module">
+      <div class="included-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="5" height="5" stroke="#FF5C1A" stroke-width="1.2"/><rect x="12" y="1" width="5" height="5" stroke="#FF5C1A" stroke-width="1.2"/><rect x="1" y="12" width="5" height="5" stroke="#FF5C1A" stroke-width="1.2"/><rect x="10" y="10" width="2" height="2" fill="#FF5C1A"/><rect x="14" y="10" width="3" height="2" fill="#FF5C1A"/><rect x="10" y="14" width="2" height="3" fill="#FF5C1A"/><rect x="14" y="15" width="3" height="2" fill="#FF5C1A"/></svg>
+      </div>
+      <div class="included-module-name">Control de acceso QR</div>
+      <div class="included-module-desc">Cada alumno ingresa escaneando su código QR personal en la puerta. Se acabó el control manual, las planillas de asistencia y las tarjetas físicas que se pierden.</div>
+    </div>
+    <div class="included-module">
+      <div class="included-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="1" y="4" width="16" height="11" rx="1.5" stroke="#FF5C1A" stroke-width="1.2"/><path d="M1 7.5h16" stroke="#FF5C1A" stroke-width="1.2"/><path d="M4 11.5h4" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="included-module-name">Pago electrónico</div>
+      <div class="included-module-desc">Cobra cuotas, clases sueltas y productos directo desde la app, con pagos recurrentes automáticos. Menos morosidad, menos efectivo, menos planillas de cobranza.</div>
+    </div>
+    <div class="included-module">
+      <div class="included-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="3" y="2" width="12" height="15" rx="1.5" stroke="#FF5C1A" stroke-width="1.2"/><path d="M6.5 1.5h5v2h-5z" stroke="#FF5C1A" stroke-width="1.1"/><path d="M6 7.5h6M6 10.5h6M6 13.5h3.5" stroke="#FF5C1A" stroke-width="1.1" stroke-linecap="round"/></svg>
+      </div>
+      <div class="included-module-name">Entrenamiento digital</div>
+      <div class="included-module-desc">Rutinas personalizadas o predefinidas que el alumno sigue paso a paso desde el celular, con registro de series, pesos y evolución en cada sesión.</div>
+    </div>
+    <div class="included-module">
+      <div class="included-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="1" y="3" width="16" height="13" rx="1.5" stroke="#FF5C1A" stroke-width="1.2"/><path d="M5 1.5v3M13 1.5v3M1 7h16" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/><path d="M6 11l2 2 4-4" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="included-module-name">Booking de clases</div>
+      <div class="included-module-desc">El alumno reserva su lugar en cada clase desde la app y ve los cupos disponibles en tiempo real, sin llamar ni pasar por recepción.</div>
+    </div>
+    <div class="included-module">
+      <div class="included-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="4" y="1" width="10" height="16" rx="2" stroke="#FF5C1A" stroke-width="1.2"/><path d="M7 14.5h4" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/><circle cx="9" cy="6" r="2" stroke="#FF5C1A" stroke-width="1.1"/></svg>
+      </div>
+      <div class="included-module-name">App con tu marca</div>
+      <div class="included-module-desc">Tu logo, tus colores y tu nombre en una app exclusiva para tus alumnos, publicada en Google Play y App Store como si fuera 100% tuya.</div>
+    </div>
+    <div class="included-module">
+      <div class="included-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="1" y="2.5" width="16" height="13" rx="1.5" stroke="#FF5C1A" stroke-width="1.2"/><path d="M1 6h16" stroke="#FF5C1A" stroke-width="1.2"/><circle cx="3.5" cy="4.2" r="0.6" fill="#FF5C1A"/><circle cx="5.5" cy="4.2" r="0.6" fill="#FF5C1A"/></svg>
+      </div>
+      <div class="included-module-name">Landing page propia</div>
+      <div class="included-module-desc">Una página profesional que presenta tu academia, tus planes y tus resultados — pensada para captar alumnos nuevos y mejorar tu posicionamiento online.</div>
+    </div>
+    <div class="included-module">
+      <div class="included-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><path d="M2 16V2M2 16h14" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/><rect x="4.5" y="10" width="2.2" height="6" fill="#FF5C1A" fill-opacity="0.7"/><rect x="8.2" y="6" width="2.2" height="10" fill="#FF5C1A" fill-opacity="0.85"/><rect x="11.9" y="3" width="2.2" height="13" fill="#FF5C1A"/></svg>
+      </div>
+      <div class="included-module-name">Business analytics</div>
+      <div class="included-module-desc">Reportes de ingresos, retención, ocupación de clases y comportamiento de tus alumnos, para decidir con datos reales y no con intuición.</div>
+    </div>
+    <div class="included-module">
+      <div class="included-module-icon">
+        <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="5.5" r="3" stroke="#FF5C1A" stroke-width="1.2"/><path d="M3 16c0-4 2.7-6 6-6s6 2 6 6" stroke="#FF5C1A" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="included-module-name">Control por alumno</div>
+      <div class="included-module-desc">Ficha individual con historial de asistencia, pagos, rutinas y evolución — todo centralizado y accesible desde el panel de administración.</div>
+    </div>
+  </div>
 </section>
 
 <!-- TESTIMONIAL -->
@@ -519,19 +703,146 @@
     <span>empieza aquí.</span>
   </h2>
   <div class="cta-buttons">
-    <button class="btn-primary">Ver demo gratis</button>
+    <button class="btn-primary js-open-demo">Ver demo gratis</button>
     <button class="btn-secondary">Hablar con un especialista</button>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">GYMTRACKO</div>
-  <div class="footer-os">
-    <span>O</span>ptimización &nbsp;·&nbsp; <span>O</span>rganización &nbsp;·&nbsp; <span>O</span>peración
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <div class="footer-logo">GYMTRACKO</div>
+      <p class="footer-tagline">Retención automatizada para gimnasios que no se quedan atrás.</p>
+      <div class="footer-os">
+        <span>O</span>ptimización &nbsp;·&nbsp; <span>O</span>rganización &nbsp;·&nbsp; <span>O</span>peración
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-col-title">Contacto</div>
+      <p class="footer-hours">Soporte de lunes a viernes<br>de 8 a 22 hs</p>
+      <a href="https://wa.me/5491100000000" target="_blank" rel="noopener" class="footer-link footer-contact-link">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 00-6.93 12.02L2 18l4.11-1.07A8 8 0 1010 2z" stroke="#FF5C1A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.9 7.1c.15-.3.3-.4.5-.4h.4c.15 0 .3 0 .4.25.15.3.5 1.15.55 1.25.05.1.05.2 0 .3-.05.15-.1.2-.2.3l-.3.3c-.1.1-.15.2-.05.35.15.3.55.9 1.2 1.5.75.65 1.3.85 1.5.95.2.1.3.1.4-.05l.45-.5c.15-.15.3-.15.5-.05l1.05.5c.2.1.3.15.35.25.05.1.05.5-.1.85-.15.4-.85.8-1.25.85-.35.05-.75.1-2.45-.5-2.1-.8-3.4-2.9-3.5-3.05-.1-.15-.8-1.05-.8-2.05 0-1 .5-1.45.7-1.65z" fill="#FF5C1A"/></svg>
+        WhatsApp
+      </a>
+      <a href="mailto:soporte@gymtracko.com" class="footer-link footer-contact-link">
+        <svg viewBox="0 0 20 20" fill="none"><rect x="2" y="4.5" width="16" height="11" rx="1.5" stroke="#FF5C1A" stroke-width="1.3"/><path d="M3 5.5l7 5.5 7-5.5" stroke="#FF5C1A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        soporte@gymtracko.com
+      </a>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-col-title">Servicios ofrecidos</div>
+      <ul class="footer-list">
+        <li><button type="button" class="footer-link js-open-demo" data-business="Gimnasio tradicional">Gimnasios y cadenas</button></li>
+        <li><button type="button" class="footer-link js-open-demo" data-business="Estudio de Yoga / Pilates">Studio</button></li>
+        <li><button type="button" class="footer-link js-open-demo" data-business="Personal Trainer">Personal trainers</button></li>
+        <li><button type="button" class="footer-link js-open-demo" data-business="Box de CrossFit">Box de CrossFit</button></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-col-title">Empresa</div>
+      <ul class="footer-list">
+        <li><a href="#" class="footer-link">Trabaje con nosotros</a></li>
+        <li><a href="#testimonial" class="footer-link">Casos de éxito</a></li>
+        <li><a href="#" class="footer-link">Integraciones</a></li>
+        <li><span class="footer-link footer-link-static">Grupo ThothCode</span></li>
+      </ul>
+    </div>
   </div>
-  <div class="footer-copy">© 2025 GYMTRACKO</div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 GYMTRACKO</div>
+  </div>
 </footer>
+
+<!-- DEMO MODAL -->
+<div class="demo-overlay" id="demo-overlay">
+  <div class="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title">
+    <button class="demo-close" id="demo-close" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+
+    <div class="demo-success" id="demo-success">
+      <div class="demo-success-icon">
+        <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#FF5C1A" stroke-width="1.5"/><path d="M12 20l6 6 10-12" stroke="#FF5C1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>¡Listo!</h3>
+      <p>Recibimos tus datos. Nuestro equipo te va a contactar en breve para agendar tu demostración.</p>
+    </div>
+
+    <form class="demo-form" id="demo-form">
+      <div class="demo-header">
+        <div class="section-tag" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;">// Demo gratuita</div>
+        <h3 id="demo-modal-title">Agenda tu demostración<br><em>gratuita</em></h3>
+        <p class="demo-sub">Descubre por qué miles de gimnasios confían en GYMTRACKO.</p>
+        <p class="demo-note">Llena el formulario sin compromiso. Demo 100% gratis.</p>
+      </div>
+
+      <div class="demo-field">
+        <label for="demo-name">¿Cuál es tu nombre?</label>
+        <input type="text" id="demo-name" name="name" required autocomplete="name">
+      </div>
+
+      <div class="demo-field">
+        <label for="demo-email">¿Cuál es tu mejor correo electrónico?</label>
+        <input type="email" id="demo-email" name="email" required autocomplete="email">
+      </div>
+
+      <div class="demo-field">
+        <label for="demo-phone">Ingresa tu teléfono con código de área. Te llamaremos para agendar tu demostración.</label>
+        <div class="demo-phone-row">
+          <select id="demo-country" name="country" class="demo-country-select" aria-label="País">
+            <option value="+54" selected>Argentina +54</option>
+            <option value="+55">Brasil +55</option>
+            <option value="+598">Uruguay +598</option>
+            <option value="+595">Paraguay +595</option>
+            <option value="+56">Chile +56</option>
+            <option value="+591">Bolivia +591</option>
+            <option value="+51">Perú +51</option>
+            <option value="+57">Colombia +57</option>
+            <option value="+52">México +52</option>
+            <option value="+34">España +34</option>
+          </select>
+          <input type="tel" id="demo-phone" name="phone" placeholder="11 2345 6789" required autocomplete="tel">
+        </div>
+      </div>
+
+      <div class="demo-field">
+        <label for="demo-business">¿Qué tipo de negocio fitness es el tuyo?</label>
+        <select id="demo-business" name="business" required>
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option>Gimnasio tradicional</option>
+          <option>Box de CrossFit</option>
+          <option>Estudio de Yoga / Pilates</option>
+          <option>Personal Trainer</option>
+          <option>Centro de entrenamiento funcional</option>
+          <option>Otro</option>
+        </select>
+      </div>
+
+      <div class="demo-field">
+        <label for="demo-branches">¿Cuántas sucursales tiene tu negocio?</label>
+        <select id="demo-branches" name="branches" required>
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option>1</option>
+          <option>2 a 5</option>
+          <option>6 a 10</option>
+          <option>Más de 10</option>
+        </select>
+      </div>
+
+      <label class="demo-checkbox">
+        <input type="checkbox" required>
+        <span>Al proporcionar mis datos, estoy de acuerdo con la Política de Privacidad.*</span>
+      </label>
+
+      <button type="submit" class="demo-submit">Agendar demostración</button>
+    </form>
+  </div>
+</div>
 
 <script>
 /* CURSOR */
@@ -548,6 +859,84 @@ function animRing(){
   requestAnimationFrame(animRing);
 }
 animRing();
+
+/* HERO 3D TILT */
+const heroPhone=document.getElementById('hero-phone');
+const heroPhoneInner=document.getElementById('hero-phone-inner');
+if(heroPhone && heroPhoneInner && window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+  const maxTilt=14;
+  let targetX=0, targetY=0, curX=0, curY=0;
+  document.addEventListener('mousemove',e=>{
+    const rect=heroPhone.getBoundingClientRect();
+    const px=Math.min(1,Math.max(0,(e.clientX-rect.left)/rect.width));
+    const py=Math.min(1,Math.max(0,(e.clientY-rect.top)/rect.height));
+    targetY=(px-0.5)*maxTilt*2;
+    targetX=(py-0.5)*-maxTilt*2;
+  });
+  function tiltLoop(){
+    curX+=(targetX-curX)*0.08;
+    curY+=(targetY-curY)*0.08;
+    heroPhoneInner.style.transform=`rotateX(${curX}deg) rotateY(${curY}deg)`;
+    requestAnimationFrame(tiltLoop);
+  }
+  tiltLoop();
+}
+
+/* HERO PHONE SCROLL FOLLOW — sticks in "top mode" through #features, then freezes at its end */
+(function(){
+  const phone=document.getElementById('hero-phone');
+  const featuresEl=document.getElementById('features');
+  if(!phone || !featuresEl) return;
+  const TOP_OFFSET=100;
+  const followMQ=window.matchMedia('(min-width: 769px)');
+  let featTop=0, featBottom=0, ticking=false;
+
+  function measure(){
+    const rect=featuresEl.getBoundingClientRect();
+    featTop=rect.top+window.scrollY;
+    featBottom=rect.bottom+window.scrollY;
+  }
+
+  function applyState(){
+    if(!followMQ.matches){
+      phone.style.position='';
+      phone.style.top='';
+      phone.style.opacity='0';
+      ticking=false;
+      return;
+    }
+    const y=window.scrollY;
+    const phoneH=phone.offsetHeight;
+    const startFollowY=featTop-TOP_OFFSET;
+    const freezeStartY=featBottom-phoneH-TOP_OFFSET;
+    const freezeTopY=featBottom-phoneH;
+
+    if(y<startFollowY){
+      phone.style.position='';
+      phone.style.top='';
+      phone.style.opacity='0';
+    } else if(y<freezeStartY){
+      phone.style.position='fixed';
+      phone.style.top=TOP_OFFSET+'px';
+      phone.style.opacity='1';
+    } else {
+      phone.style.position='absolute';
+      phone.style.top=freezeTopY+'px';
+      phone.style.opacity='1';
+    }
+    ticking=false;
+  }
+
+  measure();
+  applyState();
+  window.addEventListener('resize',()=>{ measure(); applyState(); });
+  window.addEventListener('scroll',()=>{
+    if(!ticking){
+      requestAnimationFrame(applyState);
+      ticking=true;
+    }
+  },{passive:true});
+})();
 
 /* GRID CANVAS */
 const gc=document.getElementById('grid-canvas');
@@ -636,6 +1025,9 @@ document.querySelectorAll('.stat-block,.feature-card').forEach(el=>observer.obse
 
 /* ADMIN modules observe */
 document.querySelectorAll('.admin-module').forEach(el=>observer.observe(el));
+
+/* INCLUDED modules observe */
+document.querySelectorAll('.included-module').forEach(el=>observer.observe(el));
 const adminMockup=document.getElementById('admin-mockup');
 if(adminMockup) observer.observe(adminMockup);
 
@@ -679,8 +1071,8 @@ const cObs=new IntersectionObserver(entries=>{
         animateCounter(e.target,n,'%');
       } else if(txt.includes('días')){
         animateCounter(e.target,7,' días');
-      } else if(txt.includes('R$')){
-        e.target.innerHTML='R$<span id="cv">0</span>';
+      } else if(txt.includes('$')){
+        e.target.innerHTML='$<span id="cv">0</span>';
         animateCounter(document.getElementById('cv'),480,'');
       }
       cObs.unobserve(e.target);
@@ -697,11 +1089,29 @@ navToggle.addEventListener('click',()=>{
   navToggle.classList.toggle('open',isOpen);
   navToggle.setAttribute('aria-expanded',isOpen);
 });
-navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+navLinks.querySelectorAll('a, .nav-service-item').forEach(a=>a.addEventListener('click',()=>{
   navLinks.classList.remove('open');
   navToggle.classList.remove('open');
   navToggle.setAttribute('aria-expanded','false');
 }));
+
+/* NAV SERVICES DROPDOWN */
+document.querySelectorAll('.nav-dropdown').forEach(dd=>{
+  const toggle=dd.querySelector('.nav-dropdown-toggle');
+  toggle.addEventListener('click',e=>{
+    e.stopPropagation();
+    const isOpen=dd.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',isOpen);
+  });
+});
+document.addEventListener('click',e=>{
+  document.querySelectorAll('.nav-dropdown.open').forEach(dd=>{
+    if(!dd.contains(e.target)){
+      dd.classList.remove('open');
+      dd.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded','false');
+    }
+  });
+});
 
 /* NAV scroll effect */
 window.addEventListener('scroll',()=>{
@@ -713,6 +1123,41 @@ window.addEventListener('scroll',()=>{
     nav.style.backdropFilter='blur(0)';
     nav.style.background='linear-gradient(to bottom, rgba(8,10,12,0.95) 0%, transparent 100%)';
   }
+});
+
+/* DEMO MODAL */
+const demoOverlay=document.getElementById('demo-overlay');
+const demoClose=document.getElementById('demo-close');
+const demoForm=document.getElementById('demo-form');
+const demoSuccess=document.getElementById('demo-success');
+
+function openDemoModal(business){
+  demoOverlay.classList.add('open');
+  document.body.style.overflow='hidden';
+  if(business){
+    const businessSelect=document.getElementById('demo-business');
+    if(businessSelect) businessSelect.value=business;
+  }
+}
+function closeDemoModal(){
+  demoOverlay.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.querySelectorAll('.js-open-demo').forEach(btn=>{
+  btn.addEventListener('click',()=>openDemoModal(btn.dataset.business));
+});
+demoClose.addEventListener('click',closeDemoModal);
+demoOverlay.addEventListener('click',e=>{
+  if(e.target===demoOverlay) closeDemoModal();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape' && demoOverlay.classList.contains('open')) closeDemoModal();
+});
+demoForm.addEventListener('submit',e=>{
+  e.preventDefault();
+  demoForm.style.display='none';
+  demoSuccess.classList.add('visible');
 });
 </script>
 </body>
