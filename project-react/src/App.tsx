@@ -17,6 +17,7 @@ import { Testimonial } from './components/Testimonial/Testimonial';
 import { CtaFinal } from './components/CtaFinal/CtaFinal';
 import { Footer } from './components/Footer/Footer';
 import { DemoModal } from './components/DemoModal/DemoModal';
+import { ChatWidget } from './components/ChatWidget/ChatWidget';
 
 function App() {
   const featuresRef = useRef<HTMLElement>(null);
@@ -50,6 +51,7 @@ function App() {
       <Footer />
 
       <DemoModal />
+      <ChatWidget />
     </DemoModalProvider>
   );
 }
