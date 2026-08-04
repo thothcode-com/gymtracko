@@ -1,0 +1,37 @@
+.cursor {
+  width: 12px;
+  height: 12px;
+  background: var(--orange);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: screen;
+}
+
+.ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 92, 26, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.12s ease;
+}
+
+:global(body:has(a:hover)) .cursor,
+:global(body:has(button:hover)) .cursor {
+  width: 20px;
+  height: 20px;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor,
+  .ring {
+    display: none;
+  }
+}
