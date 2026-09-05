@@ -1,0 +1,191 @@
+/* Shared styles for the legal pages (/privacy/, /terms/ and their translations).
+   Matches the landing page palette: Barlow Condensed + Barlow, orange on near-black. */
+
+:root {
+  --o: #ff5c1a;
+  --bg: #080a0c;
+  --tx: #f0eee8;
+  --mu: rgba(240, 238, 232, 0.55);
+  --mu2: rgba(240, 238, 232, 0.12);
+  --F: 'Barlow Condensed', sans-serif;
+  --FB: 'Barlow', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: var(--FB);
+  font-weight: 300;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 6rem;
+}
+
+a {
+  color: var(--o);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 92, 26, 0.35);
+}
+a:hover {
+  border-bottom-color: var(--o);
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+}
+
+.brand {
+  font-family: var(--F);
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  font-size: 0.95rem;
+  color: var(--o);
+}
+
+/* Language switcher. Render only the locales that actually exist —
+   a link to a 404 is worse than no link. */
+.langs {
+  font-family: var(--F);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: var(--mu);
+}
+.langs a,
+.langs span {
+  border: 0;
+  padding: 0 0.4rem;
+}
+.langs span[aria-current='true'] {
+  color: var(--tx);
+}
+.langs a {
+  color: var(--mu);
+}
+.langs a:hover {
+  color: var(--o);
+}
+
+h1 {
+  font-family: var(--F);
+  font-weight: 900;
+  font-size: clamp(2rem, 7vw, 3.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: var(--mu);
+  margin-top: 0.85rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--mu2);
+}
+
+h2 {
+  font-family: var(--F);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 3rem 0 0.9rem;
+  padding-top: 0.4rem;
+}
+
+h3 {
+  font-family: var(--FB);
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 1.6rem 0 0.5rem;
+}
+
+p {
+  margin-bottom: 0.9rem;
+}
+
+ul {
+  margin: 0 0 1rem 1.15rem;
+}
+li {
+  margin-bottom: 0.5rem;
+}
+li::marker {
+  color: var(--o);
+}
+
+strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0 1.5rem;
+  font-size: 0.92rem;
+  display: block;
+  overflow-x: auto;
+}
+th,
+td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.7rem 0.9rem 0.7rem 0;
+  border-bottom: 1px solid var(--mu2);
+}
+th {
+  font-family: var(--F);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  color: var(--mu);
+  white-space: nowrap;
+}
+
+.callout {
+  border-left: 3px solid var(--o);
+  background: rgba(255, 92, 26, 0.06);
+  padding: 1rem 1.1rem;
+  margin: 1.5rem 0;
+}
+.callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* Unresolved values. Deliberately loud — these must never reach production. */
+.todo {
+  background: rgba(255, 92, 26, 0.18);
+  border-bottom: 1px dashed var(--o);
+  padding: 0 0.25rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--mu2);
+  font-size: 0.85rem;
+  color: var(--mu);
+}
