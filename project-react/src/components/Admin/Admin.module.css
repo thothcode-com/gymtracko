@@ -125,24 +125,40 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 20px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.35);
-  cursor: default;
+  width: 100%;
+  padding: 11px 20px 11px 18px;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.6);
+  background: none;
+  border: 0;
+  border-left: 2px solid transparent;
+  cursor: none;
   transition: background 0.15s, color 0.15s;
   letter-spacing: 0.5px;
 }
 
-.sidebarItem--active {
-  background: rgba(255, 92, 26, 0.08);
+.sidebarItem:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sidebarItem:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: -2px;
+}
+
+.sidebarItem--active,
+.sidebarItem--active:hover {
+  background: rgba(255, 92, 26, 0.1);
   color: var(--orange);
-  border-left: 2px solid var(--orange);
-  padding-left: 18px;
+  border-left-color: var(--orange);
 }
 
 .sidebarItem svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
 }
 
@@ -342,32 +358,95 @@
   .mockupSidebar {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 4px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    /* fade the right edge to hint that more tabs scroll in */
+    -webkit-mask-image: linear-gradient(to right, #000 88%, transparent);
+    mask-image: linear-gradient(to right, #000 88%, transparent);
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 12px;
+    padding: 8px 12px 0;
+  }
+  .mockupSidebar::-webkit-scrollbar {
+    display: none;
   }
   .sidebarLogo {
     display: none;
   }
   .sidebarItem {
-    padding: 6px 10px;
+    flex-shrink: 0;
+    width: auto;
+    white-space: nowrap;
+    padding: 12px 14px;
+    border-left: 0;
+    border-bottom: 2px solid transparent;
+    scroll-snap-align: start;
   }
-  .sidebarItem--active {
-    padding-left: 10px;
-    border-left: none;
-    border-bottom: 2px solid var(--orange);
+  .sidebarItem--active,
+  .sidebarItem--active:hover {
+    border-left-color: transparent;
+    border-bottom-color: var(--orange);
   }
-  .mcTable {
+  .mockupContent {
+    padding: 16px;
+  }
+}
+
+/* phones: table rows become small cards so nothing is cut off */
+@media (max-width: 560px) {
+  .mcTable,
+  .mcTable tbody {
     display: block;
-    overflow-x: auto;
+  }
+  .mcTable thead {
+    display: none;
+  }
+  .mcTable tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .mcTable td {
+    border: 0;
+    padding: 0;
+    font-size: 13px;
+  }
+  .mcTable td:first-child {
+    grid-column: 1 / -1;
+    font-size: 15px;
+  }
+  .mcTable td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 2px;
   }
 }
 
 @media (max-width: 480px) {
   .mcRow {
-    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .mcMetric {
+    padding: 12px 10px;
+  }
+  .mcMetricLabel {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+  .mcMetricVal {
+    font-size: 24px;
+  }
+  .mcMetricDelta {
+    font-size: 12px;
   }
 }
 

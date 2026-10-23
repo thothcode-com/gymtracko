@@ -50,17 +50,6 @@
   font-weight: 500;
 }
 
-.author {
-  font-size: 14px;
-  letter-spacing: 2px;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-
-.author cite {
-  font-style: normal;
-}
-
 @media (max-width: 768px) {
   .testimonial {
     padding: 56px 20px;

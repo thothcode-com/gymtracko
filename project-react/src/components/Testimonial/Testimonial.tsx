@@ -25,9 +25,6 @@ export function Testimonial() {
             usa GYMTRACKO con <strong>+900 alumnos activos</strong>
           </span>
         </p>
-        <footer className={styles.author}>
-          <cite>Rodrigo Meira · Dueño · Fitness Prime — Buenos Aires</cite>
-        </footer>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import { useInView } from '../../hooks/useInView';
 import { InfoCard } from '../InfoCard/InfoCard';
-import { sidebarItems, metrics, alertRows, adminModules } from '../../data/admin';
+import { adminModules } from '../../data/admin';
+import { AdminMockup } from './AdminMockup';
 import styles from './Admin.module.css';
 
 export function Admin() {
@@ -36,86 +37,7 @@ export function Admin() {
           <div className={styles.mockupDot} style={{ background: '#639922' }}></div>
           <div className={styles.mockupTitleBar}>GYMTRACKO — Panel de administración</div>
         </div>
-        <div className={styles.mockupBody}>
-          <div className={styles.mockupSidebar}>
-            <div className={styles.sidebarLogo}>
-              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <circle
-                  cx="8"
-                  cy="8"
-                  r="6"
-                  stroke="#FF5C1A"
-                  strokeWidth="1.2"
-                  strokeDasharray="37.7"
-                  strokeDashoffset="9.4"
-                  transform="rotate(-90 8 8)"
-                />
-              </svg>
-              GYMTRACKO
-            </div>
-            {sidebarItems.map((item) => (
-              <div
-                key={item.label}
-                className={`${styles.sidebarItem} ${item.active ? styles['sidebarItem--active'] : ''}`}
-              >
-                {item.icon}
-                {item.label}
-              </div>
-            ))}
-          </div>
-          <div className={styles.mockupContent}>
-            <div className={styles.mcRow}>
-              {metrics.map((metric) => (
-                <div className={styles.mcMetric} key={metric.label}>
-                  <div className={styles.mcMetricLabel}>{metric.label}</div>
-                  <div
-                    className={`${styles.mcMetricVal} ${
-                      metric.valueTone ? styles[`mcMetricVal--${metric.valueTone}`] : ''
-                    }`}
-                  >
-                    {metric.value}
-                  </div>
-                  <div
-                    className={`${styles.mcMetricDelta} ${
-                      metric.deltaTone ? styles[`mcMetricDelta--${metric.deltaTone}`] : ''
-                    }`}
-                  >
-                    {metric.delta}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className={styles.mcTableHeader}>
-              <span className={styles.mcTableTitle}>Alertas de inactividad</span>
-              <span className={styles.mcAlertBadge}>18 en riesgo</span>
-            </div>
-            <table className={styles.mcTable}>
-              <thead>
-                <tr>
-                  <th scope="col">Alumno</th>
-                  <th scope="col">Último entrenamiento</th>
-                  <th scope="col">Días vencidos</th>
-                  <th scope="col">Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {alertRows.map((row) => (
-                  <tr key={row.name}>
-                    <td>{row.name}</td>
-                    <td>{row.lastTraining}</td>
-                    <td>{row.streak}</td>
-                    <td>
-                      <div className={styles.statusDotRow}>
-                        <div className={`${styles.statusDot} ${styles[`statusDot--${row.status}`]}`}></div>
-                        {row.statusLabel}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <AdminMockup />
       </div>
 
       <div className={styles.modules}>
