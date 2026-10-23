@@ -1,5 +1,5 @@
 import { navServices } from '../../data/navServices';
-import { JOBS_URL, WHATSAPP_URL } from '../../data/contact';
+import { INSTAGRAM_URL, JOBS_URL, WHATSAPP_URL } from '../../data/contact';
 import styles from './Footer.module.css';
 
 export function Footer() {
@@ -44,6 +44,19 @@ export function Footer() {
               />
             </svg>
             WhatsApp
+          </a>
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener"
+            className={`${styles.link} ${styles.contactLink}`}
+          >
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <rect x="2.5" y="2.5" width="15" height="15" rx="4.5" stroke="#FF5C1A" strokeWidth="1.3" />
+              <circle cx="10" cy="10" r="3.5" stroke="#FF5C1A" strokeWidth="1.3" />
+              <circle cx="14.6" cy="5.4" r="0.9" fill="#FF5C1A" />
+            </svg>
+            Instagram
           </a>
           <a href="mailto:soporte@gymtracko.com" className={`${styles.link} ${styles.contactLink}`}>
             <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">

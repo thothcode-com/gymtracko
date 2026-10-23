@@ -46,6 +46,7 @@ const jsonLd = {
       description:
         'Plataforma para gimnasios: retención de socios, seguimiento individual de cada alumno y app para alumnos.',
       email: 'soporte@gymtracko.com',
+      sameAs: ['https://www.instagram.com/gymtracko/'],
       telephone: '+54 9 11 2501-5698',
       founder: [
         { '@type': 'Person', name: 'Jonas Bazzi', jobTitle: 'CEO y CTO' },

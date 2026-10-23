@@ -4,5 +4,6 @@ const RADIOGRAFIA_MESSAGE = 'Hola, quiero hacer una radiografía gratis de mi gi
 
 export const RADIOGRAFIA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(RADIOGRAFIA_MESSAGE)}`;
 export const JOBS_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(JOBS_MESSAGE)}`;
+export const INSTAGRAM_URL = 'https://www.instagram.com/gymtracko/';
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 export const RADIOGRAFIA_LABEL = 'Hacé una radiografía gratis de tu gimnasio';
