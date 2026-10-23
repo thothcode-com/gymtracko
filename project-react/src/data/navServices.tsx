@@ -4,6 +4,7 @@ export interface NavService {
   business: string;
   name: string;
   description: string;
+  soon?: boolean;
   icon: ReactNode;
 }
 
@@ -12,7 +13,7 @@ export const navServices: NavService[] = [
     business: 'Gimnasio tradicional',
     name: 'Gimnasios y cadenas',
     description:
-      'Rachas, FitCoins y alertas de inactividad que mantienen a tus alumnos activos en todas las sedes.',
+      'Rachas, FitCoins y alertas de inactividad que mantienen a tus socios activos en todas las sedes.',
     icon: (
       <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
         <rect x="4" y="16" width="6" height="8" rx="1.5" stroke="#FF5C1A" strokeWidth="1.5" />
@@ -25,6 +26,7 @@ export const navServices: NavService[] = [
   },
   {
     business: 'Estudio de Yoga / Pilates',
+    soon: true,
     name: 'Studio',
     description:
       'Reservas de clases, pagos y fidelización desde un solo panel, sin planillas ni WhatsApp.',
@@ -47,9 +49,10 @@ export const navServices: NavService[] = [
   },
   {
     business: 'Personal Trainer',
+    soon: true,
     name: 'Personal trainers',
     description:
-      'Entrega rutinas digitales, seguí el progreso de cada cliente y cobrá todo desde el celular.',
+      'Entregá rutinas digitales y seguí el progreso de cada cliente desde el celular.',
     icon: (
       <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
         <circle cx="20" cy="12" r="5" stroke="#FF5C1A" strokeWidth="1.5" />
@@ -64,6 +67,7 @@ export const navServices: NavService[] = [
   },
   {
     business: 'Box de CrossFit',
+    soon: true,
     name: 'Box de CrossFit',
     description:
       'WODs, rankings y rachas semanales que mantienen a tu comunidad entrenando y compitiendo.',

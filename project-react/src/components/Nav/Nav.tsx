@@ -1,19 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { navServices } from '../../data/navServices';
-import { useDemoModal } from '../../context/DemoModalContext';
+import { RADIOGRAFIA_URL } from '../../data/contact';
 import { useNavScrollEffect } from '../../hooks/useNavScrollEffect';
 import styles from './Nav.module.css';
 
 const navLinks = [
-  { href: '#features', label: 'App del alumno' },
   { href: '#admin', label: 'Panel admin' },
   { href: '#retention', label: 'Retención' },
-  { href: '#timeline', label: 'Cómo funciona' },
+  { href: '#timeline', label: 'Todo incluido' },
+  { href: '#team', label: 'Equipo' },
 ];
 
 export function Nav() {
   const scrolled = useNavScrollEffect();
-  const { openDemoModal } = useDemoModal();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement | null>(null);
@@ -26,6 +25,24 @@ export function Nav() {
     }
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setMobileOpen(false);
+        setDropdownOpen(false);
+      }
+    }
+    function handleResize() {
+      if (window.innerWidth > 1300) setMobileOpen(false);
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   function closeMobileMenu() {
@@ -54,7 +71,7 @@ export function Nav() {
         GYMTRACKO
       </a>
 
-      <ul className={`${styles.nav__links} ${mobileOpen ? styles['nav__links--open'] : ''}`}>
+      <ul id="nav-links" className={`${styles.nav__links} ${mobileOpen ? styles['nav__links--open'] : ''}`}>
         <li
           ref={dropdownRef}
           className={`${styles.nav__dropdown} ${dropdownOpen ? styles['nav__dropdown--open'] : ''}`}
@@ -81,22 +98,20 @@ export function Nav() {
           </button>
           <ul className={styles['nav__dropdown-menu']}>
             {navServices.map((service) => (
-              <li key={service.business}>
-                <button
-                  type="button"
-                  className={styles['nav__service-item']}
-                  onClick={() => {
-                    openDemoModal(service.business);
-                    closeMobileMenu();
-                    setDropdownOpen(false);
-                  }}
-                >
+              <li
+                key={service.business}
+                className={service.soon ? undefined : styles['nav__service--featured']}
+              >
+                <div className={styles['nav__service-item']}>
                   <span className={styles['nav__service-icon']}>{service.icon}</span>
                   <span className={styles['nav__service-body']}>
-                    <span className={styles['nav__service-name']}>{service.name}</span>
+                    <span className={styles['nav__service-name']}>
+                      {service.name}
+                      {service.soon && <span className={styles['nav__soon']}>Próximamente</span>}
+                    </span>
                     <span className={styles['nav__service-desc']}>{service.description}</span>
                   </span>
-                </button>
+                </div>
               </li>
             ))}
           </ul>
@@ -110,15 +125,16 @@ export function Nav() {
         ))}
       </ul>
 
-      <button type="button" className={styles.nav__cta} onClick={() => openDemoModal()}>
-        Ver demo
-      </button>
+      <a href={RADIOGRAFIA_URL} target="_blank" rel="noopener" className={styles.nav__cta}>
+        Radiografía gratis
+      </a>
 
       <button
         type="button"
         className={`${styles.nav__toggle} ${mobileOpen ? styles['nav__toggle--open'] : ''}`}
         aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
         aria-expanded={mobileOpen}
+        aria-controls="nav-links"
         onClick={() => setMobileOpen((prev) => !prev)}
       >
         <span className={styles['nav__toggle-bar']}></span>

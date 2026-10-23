@@ -47,7 +47,7 @@ export function useLenisScroll() {
 
       // preventDefault() above suppresses the browser's native anchor-jump
       // behavior, which normally also moves focus to the target. Restore
-      // that manually so the skip link and in-page nav (#features, #admin,
+      // that manually so the skip link and in-page nav (#pilares, #admin,
       // etc.) keep working for keyboard and screen reader users instead of
       // leaving focus stranded on the link that was activated.
       if (!target.hasAttribute('tabindex')) {

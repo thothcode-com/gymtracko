@@ -1,49 +1,43 @@
 import { useEffect, useRef, useState } from 'react';
 import type { SubmitEvent } from 'react';
-import { useDemoModal } from '../../context/DemoModalContext';
 import styles from './ChatWidget.module.css';
 
 interface ChatMessage {
   id: number;
   from: 'bot' | 'user';
   text: string;
-  cta?: boolean;
 }
 
 interface Rule {
   keywords: string[];
   reply: string;
-  cta?: boolean;
 }
 
 const GREETING =
-  '¡Hola! 👋 Soy el asistente virtual de GYMTRACKO. Preguntame sobre precios, funcionalidades o cómo agendar una demo.';
+  '¡Hola! 👋 Soy el asistente virtual de GYMTRACKO. Preguntame sobre precios, funcionalidades o cómo hacer una radiografía gratis de tu gimnasio.';
 
 const FALLBACK =
-  'Todavía estoy aprendiendo y no tengo una respuesta exacta para eso. Te recomiendo agendar una demo gratuita: ahí nuestro equipo resuelve cualquier duda puntual.';
+  'Todavía estoy aprendiendo y no tengo una respuesta exacta para eso. Escribinos por WhatsApp o a soporte@gymtracko.com y nuestro equipo resuelve cualquier duda puntual.';
 
 const RULES: Rule[] = [
   {
     keywords: ['precio', 'precios', 'costo', 'cuesta', 'plan', 'planes', 'pagar'],
     reply:
-      'Nuestros planes se adaptan al tamaño de tu negocio. Lo mejor es agendar una demo gratuita para armarte una propuesta a medida.',
-    cta: true,
+      'Nuestros planes se adaptan al tamaño de tu negocio. Escribinos por WhatsApp y nuestro equipo te arma una propuesta a medida.',
   },
   {
-    keywords: ['demo', 'prueba', 'probar', 'agendar'],
-    reply: 'Puedo ayudarte a agendar tu demo gratuita ahora mismo.',
-    cta: true,
+    keywords: ['radiografia', 'diagnostico', 'gratis', 'analisis'],
+    reply:
+      'La radiografía es gratuita: analizamos los datos de asistencia, bajas e ingresos de tu gimnasio y te mostramos dónde perdés socios. Pedila por WhatsApp.',
   },
   {
     keywords: ['funciona', 'funcionalidad', 'funcionalidades', 'feature', 'app', 'aplicacion', 'aplicación'],
     reply:
-      'GYMTRACKO incluye app para alumnos, panel de administración, control de asistencia, pagos y mucho más. ¿Querés ver una demo en vivo?',
-    cta: true,
+      'GYMTRACKO incluye app para alumnos, panel de administración, control de asistencia, FitCoins y mucho más. ¿Querés conocer más detalles de alguna?',
   },
   {
     keywords: ['contacto', 'whatsapp', 'telefono', 'teléfono', 'email', 'correo', 'hablar'],
-    reply: 'Podés dejarnos tus datos en el formulario de demo y nuestro equipo te contacta a la brevedad.',
-    cta: true,
+    reply: 'Podés escribirnos por WhatsApp o a soporte@gymtracko.com. Atendemos de lunes a viernes de 8 a 22 hs.',
   },
   {
     keywords: ['hola', 'buenas', 'hey', 'buenos dias', 'buenos días', 'buenas tardes'],
@@ -55,7 +49,7 @@ const RULES: Rule[] = [
   },
 ];
 
-function findReply(input: string): { text: string; cta?: boolean } {
+function findReply(input: string): { text: string } {
   const normalized = input
     .toLowerCase()
     .normalize('NFD')
@@ -63,14 +57,13 @@ function findReply(input: string): { text: string; cta?: boolean } {
 
   for (const rule of RULES) {
     if (rule.keywords.some((keyword) => normalized.includes(keyword))) {
-      return { text: rule.reply, cta: rule.cta };
+      return { text: rule.reply };
     }
   }
-  return { text: FALLBACK, cta: true };
+  return { text: FALLBACK };
 }
 
 export function ChatWidget() {
-  const { openDemoModal } = useDemoModal();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([{ id: 0, from: 'bot', text: GREETING }]);
   const [inputValue, setInputValue] = useState('');
@@ -113,10 +106,10 @@ export function ChatWidget() {
     setInputValue('');
     setIsTyping(true);
 
-    const { text: replyText, cta } = findReply(text);
+    const { text: replyText } = findReply(text);
     window.setTimeout(() => {
       setIsTyping(false);
-      pushMessage({ from: 'bot', text: replyText, cta });
+      pushMessage({ from: 'bot', text: replyText });
     }, 650);
   }
 
@@ -174,18 +167,6 @@ export function ChatWidget() {
               className={`${styles.message} ${styles[`message--${message.from}`]}`}
             >
               <p>{message.text}</p>
-              {message.cta && (
-                <button
-                  type="button"
-                  className={styles.messageCta}
-                  onClick={() => {
-                    setIsOpen(false);
-                    openDemoModal();
-                  }}
-                >
-                  Agendar demo gratuita
-                </button>
-              )}
             </div>
           ))}
           {isTyping && (

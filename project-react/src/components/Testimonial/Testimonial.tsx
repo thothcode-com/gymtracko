@@ -11,6 +11,12 @@ export function Testimonial() {
           "Mi gimnasio dejó de <strong>perder alumnos</strong> en silencio. El app avisa antes.
           Nosotros actuamos antes."
         </blockquote>
+        <p className={styles.proof}>
+          <img className={styles.proofLogo} src="/img/anubis-gym.png" alt="Anubis Gym" />
+          <span>
+            usa GYMTRACKO con <strong>+900 alumnos activos</strong>
+          </span>
+        </p>
         <footer className={styles.author}>
           <cite>Rodrigo Meira · Dueño · Fitness Prime — Buenos Aires</cite>
         </footer>

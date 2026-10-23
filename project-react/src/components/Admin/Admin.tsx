@@ -1,25 +1,7 @@
 import { useInView } from '../../hooks/useInView';
+import { InfoCard } from '../InfoCard/InfoCard';
 import { sidebarItems, metrics, alertRows, adminModules } from '../../data/admin';
 import styles from './Admin.module.css';
-
-function AdminModuleCard({ name, desc, tags, icon }: (typeof adminModules)[number]) {
-  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.15 });
-
-  return (
-    <div ref={ref} className={`${styles.module} ${inView ? styles['module--visible'] : ''}`}>
-      <div className={styles.moduleIcon}>{icon}</div>
-      <div className={styles.moduleName}>{name}</div>
-      <div className={styles.moduleDesc}>{desc}</div>
-      <div className={styles.moduleTags}>
-        {tags.map((tag) => (
-          <span className={styles.moduleTag} key={tag}>
-            {tag}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export function Admin() {
   const [mockupRef, mockupInView] = useInView<HTMLDivElement>({ threshold: 0.15 });
@@ -30,16 +12,16 @@ export function Admin() {
         <div>
           <div className={styles.tag}>// 03 — Panel de administración</div>
           <h2 className={styles.title}>
-            Tú también
+            Vos también
             <br />
-            tienes el
+            tenés el
             <br />
             <em>control total.</em>
           </h2>
         </div>
         <p className={styles.intro}>
-          GYMTRACKO no es solo para el alumno. Como dueño o encargado, tenés un panel completo
-          para gestionar <strong>alumnos, rutinas, agenda, finanzas, staff y recompensas</strong> —
+          GYMTRACKO no es solo para el alumno. Como dueño o encargado, tenés una plataforma completa
+          que controla <strong>socios, rutinas, agenda, finanzas, staff y recompensas</strong> —
           todo en tiempo real, sin planillas ni papel.
         </p>
       </div>
@@ -112,7 +94,7 @@ export function Admin() {
                 <tr>
                   <th scope="col">Alumno</th>
                   <th scope="col">Último entrenamiento</th>
-                  <th scope="col">Racha</th>
+                  <th scope="col">Días vencidos</th>
                   <th scope="col">Estado</th>
                 </tr>
               </thead>
@@ -137,8 +119,8 @@ export function Admin() {
       </div>
 
       <div className={styles.modules}>
-        {adminModules.map((module) => (
-          <AdminModuleCard key={module.name} {...module} />
+        {adminModules.map((module, i) => (
+          <InfoCard key={module.name} index={i} {...module} />
         ))}
       </div>
     </section>

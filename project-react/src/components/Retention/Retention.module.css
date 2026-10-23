@@ -52,7 +52,7 @@
 }
 
 .ringSub {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -69,7 +69,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
 }
 
@@ -80,8 +80,9 @@
 }
 
 .right .tag {
-  font-size: 10px;
-  letter-spacing: 3px;
+  font-size: clamp(14px, 1.6vw, 18px);
+  font-weight: 500;
+  letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--orange);
   margin-bottom: 16px;
@@ -90,7 +91,7 @@
 .title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(38px, 4vw, 60px);
+  font-size: clamp(44px, 5vw, 72px);
   line-height: 0.95;
   text-transform: uppercase;
   margin-bottom: 24px;
@@ -107,51 +108,6 @@
   color: var(--muted);
   line-height: 1.8;
   margin-bottom: 32px;
-}
-
-.fitcoinRow {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.fitcoinItem {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 20px;
-  border: 1px solid var(--line);
-  background: var(--bg);
-}
-
-.fitcoinIcon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--orange-dim);
-  border: 1px solid var(--orange-glow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.fitcoinIcon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.fitcoinName {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.fitcoinCoins {
-  margin-left: auto;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--orange);
 }
 
 @media (max-width: 1024px) {
@@ -186,8 +142,5 @@
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
-  }
-  .fitcoinItem {
-    flex-wrap: wrap;
   }
 }

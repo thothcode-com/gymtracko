@@ -1,17 +1,15 @@
 import { navServices } from '../../data/navServices';
-import { useDemoModal } from '../../context/DemoModalContext';
+import { JOBS_URL, WHATSAPP_URL } from '../../data/contact';
 import styles from './Footer.module.css';
 
 export function Footer() {
-  const { openDemoModal } = useDemoModal();
-
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={`${styles.brand}`}>
           <div className={styles.logo}>GYMTRACKO</div>
           <p className={styles.tagline}>
-            Retención automatizada para gimnasios que no se quedan atrás.
+            Plataforma para gimnasios: retención automatizada de socios y crecimiento con datos.
           </p>
           <div className={styles.os}>
             <span>O</span>ptimización &nbsp;·&nbsp; <span>O</span>rganización &nbsp;·&nbsp;{' '}
@@ -27,7 +25,7 @@ export function Footer() {
             de 8 a 22 hs
           </p>
           <a
-            href="https://wa.me/5491100000000"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener"
             className={`${styles.link} ${styles.contactLink}`}
@@ -63,17 +61,16 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className={styles.colTitle}>Servicios ofrecidos</h2>
+          <h2 className={styles.colTitle}>Servicios</h2>
           <ul className={styles.list}>
             {navServices.map((service) => (
               <li key={service.business}>
-                <button
-                  type="button"
-                  className={styles.link}
-                  onClick={() => openDemoModal(service.business)}
+                <span
+                  className={`${styles.link} ${styles.linkStatic} ${service.soon ? '' : styles.featured}`}
                 >
                   {service.name}
-                </button>
+                  {service.soon && <span className={styles.soon}>Próximamente</span>}
+                </span>
               </li>
             ))}
           </ul>
@@ -83,8 +80,8 @@ export function Footer() {
           <h2 className={styles.colTitle}>Empresa</h2>
           <ul className={styles.list}>
             <li>
-              <a href="#" className={styles.link}>
-                Trabaje con nosotros
+              <a href={JOBS_URL} target="_blank" rel="noopener" className={styles.link}>
+                Trabajá con nosotros
               </a>
             </li>
             <li>
@@ -105,7 +102,7 @@ export function Footer() {
       </div>
 
       <div className={styles.bottom}>
-        <div className={styles.copy}>© 2025 GYMTRACKO</div>
+        <div className={styles.copy}>© 2026 GYMTRACKO</div>
       </div>
     </footer>
   );

@@ -1,34 +1,5 @@
 import type { ReactNode } from 'react';
 
-export interface TimelineStep {
-  num: string;
-  title: string;
-  desc: string;
-}
-
-export const timelineSteps: TimelineStep[] = [
-  {
-    num: '01',
-    title: 'Registro',
-    desc: 'Configura tu gimnasio, clases y estructura de recompensas en menos de 30 minutos.',
-  },
-  {
-    num: '02',
-    title: 'Alumnos',
-    desc: 'Invita a tus alumnos. Cada uno hace el onboarding y configura su objetivo y días de entrenamiento.',
-  },
-  {
-    num: '03',
-    title: 'Activación',
-    desc: 'Los entrenadores crean planes en el app. El sistema de racha y FitCoins se activa automáticamente.',
-  },
-  {
-    num: '04',
-    title: 'Resultados',
-    desc: 'Monitorea retención, compromiso y alumnos en riesgo de baja en tiempo real.',
-  },
-];
-
 export interface IncludedModule {
   name: string;
   desc: string;
@@ -48,17 +19,6 @@ export const includedModules: IncludedModule[] = [
         <rect x="14" y="10" width="3" height="2" fill="#FF5C1A" />
         <rect x="10" y="14" width="2" height="3" fill="#FF5C1A" />
         <rect x="14" y="15" width="3" height="2" fill="#FF5C1A" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Pago electrónico',
-    desc: 'Cobra cuotas, clases sueltas y productos directo desde la app, con pagos recurrentes automáticos. Menos morosidad, menos efectivo, menos planillas de cobranza.',
-    icon: (
-      <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <rect x="1" y="4" width="16" height="11" rx="1.5" stroke="#FF5C1A" strokeWidth="1.2" />
-        <path d="M1 7.5h16" stroke="#FF5C1A" strokeWidth="1.2" />
-        <path d="M4 11.5h4" stroke="#FF5C1A" strokeWidth="1.2" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -97,7 +57,7 @@ export const includedModules: IncludedModule[] = [
   },
   {
     name: 'Landing page propia',
-    desc: 'Una página profesional que presenta tu academia, tus planes y tus resultados — pensada para captar alumnos nuevos y mejorar tu posicionamiento online.',
+    desc: 'Una página profesional que presenta tu gimnasio, tus planes y tus resultados — pensada para captar socios nuevos y mejorar tu posicionamiento online.',
     icon: (
       <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
         <rect x="1" y="2.5" width="16" height="13" rx="1.5" stroke="#FF5C1A" strokeWidth="1.2" />
@@ -116,6 +76,18 @@ export const includedModules: IncludedModule[] = [
         <rect x="4.5" y="10" width="2.2" height="6" fill="#FF5C1A" fillOpacity="0.7" />
         <rect x="8.2" y="6" width="2.2" height="10" fill="#FF5C1A" fillOpacity="0.85" />
         <rect x="11.9" y="3" width="2.2" height="13" fill="#FF5C1A" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Capacitación para tu equipo',
+    desc: 'Capacitamos a tus entrenadores y a tu equipo de recepción para que usen la plataforma desde el primer día y ordenen los procesos de tu gimnasio.',
+    icon: (
+      <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <circle cx="6" cy="6" r="2.5" stroke="#FF5C1A" strokeWidth="1.2" />
+        <path d="M1.5 15c0-3 2-4.5 4.5-4.5s4.5 1.5 4.5 4.5" stroke="#FF5C1A" strokeWidth="1.2" strokeLinecap="round" />
+        <circle cx="13" cy="7" r="2" stroke="#FF5C1A" strokeWidth="1.1" />
+        <path d="M12 11.2c2.8-.3 4.5 1 4.5 3.3" stroke="#FF5C1A" strokeWidth="1.1" strokeLinecap="round" />
       </svg>
     ),
   },

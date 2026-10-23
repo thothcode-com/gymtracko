@@ -28,8 +28,30 @@
   font-weight: 700;
 }
 
+.proof {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.proofLogo {
+  height: 56px;
+  width: auto;
+}
+
+.proof strong {
+  color: var(--orange);
+  font-weight: 500;
+}
+
 .author {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 2px;
   color: var(--muted);
   text-transform: uppercase;

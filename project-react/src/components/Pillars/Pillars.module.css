@@ -1,0 +1,327 @@
+.pillars {
+  position: relative;
+  z-index: 10;
+  padding: 120px 48px;
+}
+
+.header {
+  max-width: 1000px;
+  margin: 0 auto 72px;
+  text-align: center;
+}
+
+.tag {
+  font-size: clamp(14px, 1.6vw, 18px);
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 24px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(56px, 8vw, 120px);
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.title em {
+  color: var(--orange);
+  font-style: normal;
+}
+
+.sub {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  padding: 36px 32px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s, transform 0.6s, border-color 0.2s;
+}
+
+.card--visible {
+  opacity: 1;
+  transform: none;
+}
+
+.card:hover {
+  border-color: rgba(255, 92, 26, 0.5);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.icon {
+  width: 44px;
+  height: 44px;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.14);
+}
+
+.audience {
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.cardDesc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.bullets li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 1px;
+  background: var(--orange);
+}
+
+.visual {
+  margin-top: auto;
+  margin-bottom: 24px;
+  padding: 16px;
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+}
+
+.visual > svg {
+  width: 100%;
+  height: auto;
+}
+
+.link {
+  align-self: flex-start;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  text-decoration: none;
+  cursor: none;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.link:hover {
+  border-bottom-color: var(--orange);
+}
+
+/* pillar 1: growing chart, drawn when the card scrolls into view */
+.chartLine {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.chartArea {
+  opacity: 0;
+}
+
+.chartDot {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.4);
+}
+
+.card--visible .chartLine {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+}
+
+.card--visible .chartArea {
+  opacity: 1;
+  transition: opacity 1.2s ease 1.2s;
+}
+
+.card--visible .chartDot {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease 2.3s, transform 0.4s ease 2.3s;
+}
+
+/* pillar 2: risk list */
+.riskList {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.riskList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.riskName {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.badge {
+  flex-shrink: 0;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 4px 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+
+.badge--risk {
+  color: #ff8a80;
+}
+
+.badge--warn {
+  color: #ffc46b;
+}
+
+.badge--ok {
+  color: #8fd694;
+}
+
+/* pillar 3: weekly streak */
+.streak {
+  width: 100%;
+}
+
+.streakLabel {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.streakDots {
+  display: flex;
+  gap: 8px;
+}
+
+.streakDot {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.streakDot--on {
+  background: var(--orange);
+}
+
+@media (max-width: 1024px) {
+  .pillars {
+    padding: 100px 32px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pillars {
+    padding: 80px 20px;
+  }
+  .header {
+    margin-bottom: 40px;
+  }
+  .card {
+    padding: 28px 22px;
+  }
+  .cardTitle {
+    font-size: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .chartLine,
+  .card--visible .chartLine {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+  .chartArea,
+  .chartDot {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,41 +1,6 @@
 import { useInView } from '../../hooks/useInView';
 import styles from './Retention.module.css';
 
-const fitcoinItems = [
-  {
-    name: 'Completar entrenamiento',
-    coins: '+25 FC',
-    icon: (
-      <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <path d="M9 3v12M3 9h12" stroke="#FF5C1A" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Check-in en clase',
-    coins: '+15 FC',
-    icon: (
-      <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <circle cx="9" cy="9" r="6" stroke="#FF5C1A" strokeWidth="1.5" />
-        <path d="M9 6v3l2 2" stroke="#FF5C1A" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Mantener racha semanal',
-    coins: '+50 FC',
-    icon: (
-      <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <path
-          d="M9 2l1.8 5.4H17l-4.9 3.6 1.8 5.4L9 13l-4.9 3.4 1.8-5.4L1 7.4h6.2z"
-          stroke="#FF5C1A"
-          strokeWidth="1.2"
-        />
-      </svg>
-    ),
-  },
-];
-
 export function Retention() {
   const [ringRef, ringInView] = useInView<HTMLDivElement>({ threshold: 0.3 });
 
@@ -94,30 +59,18 @@ export function Retention() {
           </div>
         </div>
         <div className={styles.right}>
-          <div className={styles.tag}>// 04 — Sistema de fidelización</div>
+          <div className={styles.tag}>// 04 — Retención</div>
           <h2 className={styles.title}>
-            FitCoins:
+            Cada alumno
             <br />
-            tu alumno
+            es distinto.
             <br />
-            <em>no cancela</em>
-            <br />
-            lo que acumuló.
+            <em>Por eso se queda.</em>
           </h2>
           <p className={styles.body}>
-            La psicología del costo hundido trabaja a tu favor. El alumno con 500 FitCoins lo
-            piensa dos veces antes de cancelar la membresía. Es el mismo principio de las millas
-            de tarjeta de crédito — pero para gimnasios.
+            Sabemos que cada alumno es diferente y que cada uno merece una rutina pensada para él y
+            un equipo que lo mire de cerca. Esa atención individual es lo que lo hace quedarse.
           </p>
-          <div className={styles.fitcoinRow}>
-            {fitcoinItems.map((item) => (
-              <div className={styles.fitcoinItem} key={item.name}>
-                <div className={styles.fitcoinIcon}>{item.icon}</div>
-                <span className={styles.fitcoinName}>{item.name}</span>
-                <span className={styles.fitcoinCoins}>{item.coins}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

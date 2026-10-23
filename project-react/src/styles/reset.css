@@ -8,6 +8,11 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -69,7 +74,7 @@ a {
   padding: 12px 20px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;

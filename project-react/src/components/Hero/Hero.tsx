@@ -1,12 +1,12 @@
+import { RADIOGRAFIA_LABEL, RADIOGRAFIA_URL } from '../../data/contact';
 import styles from './Hero.module.css';
 
 export function Hero() {
   return (
     <section id="hero" className={styles.hero}>
       <div className={styles.bgVideo} aria-hidden="true">
-        <video autoPlay muted loop playsInline tabIndex={-1}>
-          <source src="/video/hero.mp4" type="video/mp4" />
-        </video>
+        <img className={styles.photo} src="/img/hero.jpg" alt="" />
+
         <div className={styles.bgOverlay}></div>
       </div>
 
@@ -19,10 +19,20 @@ export function Hero() {
         <span className={styles.line3}>para gimnasios que no se quedan atrás</span>
       </h1>
 
+      <div className={styles.ctas}>
+        <a href={RADIOGRAFIA_URL} target="_blank" rel="noopener" className={styles.btnPrimary}>
+          {RADIOGRAFIA_LABEL}
+        </a>
+        <a href="#pilares" className={styles.btnSecondary}>
+          Ver cómo funciona
+        </a>
+      </div>
+
       <div className={styles.bottom}>
         <p className={styles.desc}>
-          <strong>GYMTRACKO</strong> convierte datos de entrenamiento en acciones que mantienen a tus
-          alumnos activos, comprometidos y pagando.
+          <strong>GYMTRACKO</strong> convierte los datos de tu gimnasio en decisiones. Retención,
+          finanzas, operación y app para alumnos en un solo lugar: sabés qué socios se enfrían y
+          actuás antes de que cancelen.
         </p>
         <div className={styles.stats}>
           <div>
@@ -46,10 +56,13 @@ export function Hero() {
         </div>
       </div>
 
-      <div className={styles.scrollIndicator}>
-        <span>Scroll</span>
-        <div className={styles.scrollLine}></div>
-      </div>
+      <p className={styles.proof}>
+        <span>Confían en GYMTRACKO gimnasios de gran porte como</span>
+        <img className={styles.proofLogo} src="/img/anubis-gym.png" alt="Anubis Gym" />
+        <span>
+          <strong>+900 alumnos activos</strong>
+        </span>
+      </p>
     </section>
   );
 }

@@ -100,9 +100,9 @@ export interface Metric {
 export const metrics: Metric[] = [
   { label: 'Alumnos activos', value: '247', delta: '↑ 12 este mes', deltaTone: 'up' },
   { label: 'Inactivos +7 días', value: '18', valueTone: 'red', delta: '↑ 3 esta semana', deltaTone: 'down' },
-  { label: 'FitCoins en circulación', value: '34.8k', valueTone: 'orange', delta: '↑ 2.1k esta semana', deltaTone: 'up' },
+  { label: 'Crecimiento este mes', value: '$12 M', valueTone: 'orange', delta: '↑ 10% vs. mes anterior', deltaTone: 'up' },
   { label: 'Clases hoy', value: '6', delta: '3 con cupo disponible', deltaTone: 'neutral' },
-  { label: 'Canjes pendientes', value: '9', valueTone: 'orange', delta: 'Requieren entrega', deltaTone: 'down' },
+  { label: 'Alumnos que vinieron hoy', value: '461', valueTone: 'orange', delta: 'Check-ins de hoy', deltaTone: 'neutral' },
   { label: 'Solicitudes rutina', value: '4', delta: 'Sin responder', deltaTone: 'neutral' },
 ];
 
@@ -115,10 +115,10 @@ export interface AlertRow {
 }
 
 export const alertRows: AlertRow[] = [
-  { name: 'Valentina Ríos', lastTraining: 'Hace 11 días', streak: '4 semanas ❌', status: 'red', statusLabel: 'En riesgo' },
-  { name: 'Marcos Ibáñez', lastTraining: 'Hace 8 días', streak: '7 semanas ⚠️', status: 'amber', statusLabel: 'Alerta' },
-  { name: 'Luciana Ferre', lastTraining: 'Hace 7 días', streak: '2 semanas ⚠️', status: 'amber', statusLabel: 'Alerta' },
-  { name: 'Diego Ortega', lastTraining: 'Ayer', streak: '12 semanas ✓', status: 'green', statusLabel: 'Activo' },
+  { name: 'Valentina Ríos', lastTraining: 'Hace 14 días', streak: '12 días ❌', status: 'red', statusLabel: 'En riesgo' },
+  { name: 'Marcos Ibáñez', lastTraining: 'Hace 9 días', streak: '5 días ⚠️', status: 'amber', statusLabel: 'Alerta' },
+  { name: 'Luciana Ferre', lastTraining: 'Hace 7 días', streak: '3 días ⚠️', status: 'amber', statusLabel: 'Alerta' },
+  { name: 'Diego Ortega', lastTraining: 'Ayer', streak: 'Al día ✓', status: 'green', statusLabel: 'Activo' },
 ];
 
 export interface AdminModule {

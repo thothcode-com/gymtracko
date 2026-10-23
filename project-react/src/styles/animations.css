@@ -85,3 +85,25 @@
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
+@keyframes heroBlurIn {
+  from {
+    opacity: 0;
+    transform: translateX(-4%) scale(1.14);
+    filter: blur(22px) brightness(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1.04);
+    filter: blur(0) brightness(1);
+  }
+}
+
+@keyframes heroDrift {
+  from {
+    transform: translateX(0) scale(1.04);
+  }
+  to {
+    transform: translateX(-1.5%) scale(1.08);
+  }
+}
