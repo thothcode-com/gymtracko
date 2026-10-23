@@ -82,9 +82,21 @@ writeFileSync(join(dist, 'index.html'), html)
 // 5) sitemap + robots Sitemap line (needs the absolute site URL)
 if (siteUrl) {
   const today = new Date().toISOString().slice(0, 10)
+  const pages = [
+    { path: '/', priority: '1.0' },
+    { path: '/privacy/', priority: '0.3' },
+    { path: '/terms/', priority: '0.3' },
+    { path: '/delete-account/', priority: '0.3' },
+  ]
+  const urls = pages
+    .map(
+      (p) =>
+        `  <url>\n    <loc>${siteUrl}${p.path}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${p.priority}</priority>\n  </url>`,
+    )
+    .join('\n')
   writeFileSync(
     join(dist, 'sitemap.xml'),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${siteUrl}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>\n`,
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
   )
   appendFileSync(join(dist, 'robots.txt'), `\nSitemap: ${siteUrl}/sitemap.xml\n`)
 }
