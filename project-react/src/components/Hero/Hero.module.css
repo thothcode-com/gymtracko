@@ -26,9 +26,8 @@
 }
 
 .photo {
-  filter: contrast(1.05) brightness(1);
-  animation: global(heroBlurIn) 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) forwards,
-    global(heroDrift) 14s ease-in-out 1.6s infinite alternate;
+  animation: global(heroBlurIn) 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) forwards,
+    global(heroDrift) 14s ease-in-out 1.2s infinite alternate;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -58,7 +57,7 @@
   align-items: center;
   gap: 12px;
   opacity: 0;
-  animation: global(fadeUp) 0.8s 0.3s forwards;
+  animation: global(fadeUp) 0.6s 0.1s forwards;
   position: relative;
   z-index: 1;
 }
@@ -88,7 +87,7 @@
   color: var(--text);
   display: block;
   opacity: 0;
-  animation: global(fadeUp) 0.8s 0.5s forwards;
+  animation: global(fadeUp) 0.6s 0.15s forwards;
 }
 
 .line2 {
@@ -96,7 +95,7 @@
   color: var(--orange);
   display: block;
   opacity: 0;
-  animation: global(fadeUp) 0.8s 0.65s forwards;
+  animation: global(fadeUp) 0.6s 0.25s forwards;
 }
 
 .line3 {
@@ -107,7 +106,7 @@
   font-style: italic;
   letter-spacing: 1px;
   opacity: 0;
-  animation: global(fadeUp) 0.8s 0.8s forwards;
+  animation: global(fadeUp) 0.6s 0.35s forwards;
 }
 
 .ctas {
@@ -116,7 +115,7 @@
   gap: 16px;
   margin-bottom: 48px;
   opacity: 0;
-  animation: global(fadeUp) 0.8s 0.9s forwards;
+  animation: global(fadeUp) 0.6s 0.45s forwards;
   position: relative;
   z-index: 1;
 }
@@ -168,7 +167,7 @@
   position: relative;
   z-index: 1;
   opacity: 0;
-  animation: global(fadeUp) 0.8s 1.2s forwards;
+  animation: global(fadeUp) 0.6s 0.6s forwards;
 }
 
 .proofLogo {
@@ -186,7 +185,7 @@
   align-items: flex-end;
   justify-content: space-between;
   opacity: 0;
-  animation: global(fadeUp) 0.8s 1s forwards;
+  animation: global(fadeUp) 0.6s 0.5s forwards;
   position: relative;
   z-index: 1;
 }

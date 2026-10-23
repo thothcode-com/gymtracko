@@ -1,4 +1,5 @@
-import { useLenisScroll } from './hooks/useLenisScroll';
+import { useIdleReady } from './hooks/useIdleReady';
+import { SmoothScroll } from './components/SmoothScroll/SmoothScroll';
 import { Cursor } from './components/Cursor/Cursor';
 import { GridCanvas } from './components/GridCanvas/GridCanvas';
 import { ParticleCanvas } from './components/ParticleCanvas/ParticleCanvas';
@@ -15,7 +16,7 @@ import { CtaFinal } from './components/CtaFinal/CtaFinal';
 import { Footer } from './components/Footer/Footer';
 
 function App() {
-  useLenisScroll();
+  const idle = useIdleReady();
 
   return (
     <>
@@ -24,8 +25,13 @@ function App() {
       </a>
 
       <Cursor />
-      <GridCanvas />
-      <ParticleCanvas />
+      {idle && (
+        <>
+          <SmoothScroll />
+          <GridCanvas />
+          <ParticleCanvas />
+        </>
+      )}
 
       <Nav />
 

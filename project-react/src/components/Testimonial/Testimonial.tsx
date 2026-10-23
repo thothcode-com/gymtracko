@@ -12,7 +12,15 @@ export function Testimonial() {
           Nosotros actuamos antes."
         </blockquote>
         <p className={styles.proof}>
-          <img className={styles.proofLogo} src="/img/anubis-gym.png" alt="Anubis Gym" />
+          <img
+            className={styles.proofLogo}
+            src="/img/anubis-gym-168.webp"
+            width={212}
+            height={168}
+            alt="Anubis Gym"
+            loading="lazy"
+            decoding="async"
+          />
           <span>
             usa GYMTRACKO con <strong>+900 alumnos activos</strong>
           </span>

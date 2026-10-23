@@ -1,0 +1,10 @@
+# GYMTRACKO
+
+> Plataforma para gimnasios que convierte los datos de tu gimnasio en decisiones: retención de socios, seguimiento individual de cada alumno y app para alumnos. Disponible hoy para gimnasios y cadenas, en español.
+
+GYMTRACKO une retención, operación y una app para alumnos en un solo lugar. El dueño ve qué socios se alejan y el equipo actúa antes de que cancelen. Referencia: Anubis Gym, con más de 900 alumnos activos.
+
+## Contacto
+
+- [Radiografía gratis de tu gimnasio (WhatsApp)](https://wa.me/5491125015698): análisis gratuito de asistencia, bajas e ingresos de tu gimnasio.
+- [Soporte por email](mailto:soporte@gymtracko.com): atención de lunes a viernes, de 8 a 22 hs.

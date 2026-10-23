@@ -88,7 +88,6 @@
 
 @keyframes heroBlurIn {
   from {
-    opacity: 0;
     transform: translateX(-4%) scale(1.14);
     filter: blur(22px) brightness(1.1);
   }
