@@ -2,10 +2,11 @@
   position: relative;
   z-index: 10;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 48px 80px;
+  padding: 120px 48px 80px; /* top padding keeps the content clear of the fixed nav */
   overflow: hidden;
 }
 
@@ -258,7 +259,7 @@
 
 @media (max-width: 1024px) {
   .hero {
-    padding: 0 32px 64px;
+    padding: 104px 32px 64px;
   }
   .bottom {
     gap: 24px;
@@ -279,6 +280,8 @@
 @media (max-width: 768px) {
   .ctas {
     flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
   }
   .btnPrimary,
   .btnSecondary {
@@ -286,7 +289,7 @@
     padding: 16px 24px;
   }
   .hero {
-    padding: 0 20px 56px;
+    padding: 92px 20px 48px;
     min-height: 100svh;
   }
   .bottom {
@@ -314,5 +317,66 @@
   .bgOverlay {
     background: radial-gradient(circle at 25% 15%, rgba(255, 92, 26, 0.1), transparent 55%),
       linear-gradient(180deg, rgba(27, 32, 39, 0.2) 0%, rgba(27, 32, 39, 0.5) 55%, var(--bg) 100%);
+  }
+}
+
+@media (max-width: 380px) {
+  .btnPrimary,
+  .btnSecondary {
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 14px 16px;
+  }
+  .stats {
+    gap: 20px;
+  }
+  .statNum {
+    font-size: 36px;
+  }
+}
+
+/* short phones (e.g. 375x667, 320x568): tighten vertical rhythm so more of the hero fits */
+@media (max-width: 768px) and (max-height: 720px) {
+  .hero {
+    padding-top: 84px;
+    padding-bottom: 32px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .title {
+    margin-bottom: 20px;
+  }
+  .line1,
+  .line2 {
+    font-size: clamp(36px, 11.5vw, 64px);
+  }
+  .line3 {
+    font-size: clamp(22px, 5.5vw, 32px);
+  }
+  .ctas {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .btnPrimary,
+  .btnSecondary {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  .bottom {
+    gap: 20px;
+  }
+  .desc {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .statNum {
+    font-size: 34px;
+  }
+  .proof {
+    margin-top: 24px;
+    padding-top: 16px;
   }
 }

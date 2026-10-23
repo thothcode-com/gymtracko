@@ -370,3 +370,11 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* very narrow phones: let the mock table scroll sideways instead of being clipped */
+@media (max-width: 380px) {
+  .mockupContent {
+    overflow-x: auto;
+    min-width: 0;
+  }
+}
