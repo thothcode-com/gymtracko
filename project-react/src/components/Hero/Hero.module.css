@@ -121,8 +121,7 @@
   z-index: 1;
 }
 
-.btnPrimary,
-.btnSecondary {
+.btnPrimary {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 15px;
@@ -142,16 +141,6 @@
 .btnPrimary:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-}
-
-.btnSecondary {
-  color: var(--text);
-  border: 1px solid var(--border-strong);
-}
-
-.btnSecondary:hover {
-  border-color: var(--orange);
-  color: var(--orange);
 }
 
 .proof {
@@ -283,8 +272,7 @@
     gap: 12px;
     margin-bottom: 32px;
   }
-  .btnPrimary,
-  .btnSecondary {
+  .btnPrimary {
     text-align: center;
     padding: 16px 24px;
   }
@@ -321,8 +309,7 @@
 }
 
 @media (max-width: 380px) {
-  .btnPrimary,
-  .btnSecondary {
+  .btnPrimary {
     font-size: 14px;
     letter-spacing: 1px;
     padding: 14px 16px;
@@ -360,8 +347,7 @@
     gap: 10px;
     margin-bottom: 20px;
   }
-  .btnPrimary,
-  .btnSecondary {
+  .btnPrimary {
     padding: 12px 16px;
     font-size: 14px;
   }

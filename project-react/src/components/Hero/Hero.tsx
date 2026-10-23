@@ -33,9 +33,6 @@ export function Hero() {
         <a href={RADIOGRAFIA_URL} target="_blank" rel="noopener" className={styles.btnPrimary}>
           {RADIOGRAFIA_LABEL}
         </a>
-        <a href="#pilares" className={styles.btnSecondary}>
-          Ver cómo funciona
-        </a>
       </div>
 
       <div className={styles.bottom}>
